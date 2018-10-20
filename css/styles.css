@@ -1,0 +1,79 @@
+body{
+    background-color: white;
+}
+
+a{
+    text-decoration: none;
+}
+
+.container{
+    width: 70%;
+    margin: auto;
+    background-color: #efffff;
+    border-radius: 15px;
+    padding: 15px;
+    border: black solid 1px;
+}
+
+.header {
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.name{
+    margin: 20px;
+}
+.name a{
+    color: black;
+    font-size: 26px;
+    font-weight: bolder;
+}
+.logins a{
+    margin: 10px;
+    color: black;
+}
+
+.logins a:hover{
+    color: darkblue;
+}
+
+.nav{
+    display: flex;
+    justify-content: center;
+    background-color: black;
+}
+
+.logins{
+    margin-top: 25px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 7px 8px;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #ffffff;
+    color: black;
+}
+
+.footer{
+    text-align: center;
+}

@@ -1,7 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: drankou
- * Date: 14/10/18
- * Time: 11:05
- */
+require "common.php";
+
+make_header("Uvodní strana");
+?>
+
+<p>Obsah uvodni stranky.</p>
+
+
+<?php
+make_footer();
+?>
+
