@@ -81,7 +81,7 @@ CONSTRAINT `FK_doplnek_spravce` FOREIGN KEY(`spravce`) REFERENCES `ZAMESTNANEC` 
 CONSTRAINT `FK_doplnek_vyrobce` FOREIGN KEY(`vyrobce`) REFERENCES `VYROBCE` (`id_vyrobce`)
 )ENGINE=InnoDB;
 
-CREATE TABLE `DODANI_KOSTYMU`(
+CREATE TABLE IF NOT EXISTS`DODANI_KOSTYMU`(
 `vypujcka` INT,
 `kostym` INT,
 PRIMARY KEY(`vypujcka`,`kostym`),
@@ -89,29 +89,36 @@ KEY `vypujcka` (`vypujcka`),
 KEY `kostym` (`kostym`),
 CONSTRAINT `FK_dodani_kostymu_kostym` FOREIGN KEY(`kostym`) REFERENCES `KOSTYM`(`id_kostymu`) ON DELETE CASCADE,
 CONSTRAINT `FK_dodani_kostymu_vypujcka` FOREIGN KEY(`vypujcka`) REFERENCES `VYPUJCKA`(`id_vypujcky`) ON DELETE CASCADE
-);
+)ENGINE=InnoDB;
 
-CREATE TABLE DODANI_DOPLNKU(
-vypujcka INT CONSTRAINT FK_dodani_doplnku_vypujcka
-REFERENCES VYPUJCKA ON DELETE CASCADE,
-doplnek INT CONSTRAINT FK_dodani_doplnku_doplnek
-REFERENCES DOPLNEK ON DELETE CASCADE,
-CONSTRAINT PK_dodani_doplnku PRIMARY KEY(vypujcka,doplnek)
-);
+CREATE TABLE `DODANI_DOPLNKU`(
+`vypujcka` INT,
+`doplnek` INT,
+KEY `vypujcka` (`vypujcka`),
+KEY `doplnek` (`doplnek`), 
+CONSTRAINT `FK_dodani_doplnku_doplnek` FOREIGN KEY(`doplnek`) REFERENCES `DOPLNEK`(`id_doplnku`) ON DELETE CASCADE,
+CONSTRAINT `FK_dodani_doplnku_vypujcka` FOREIGN KEY(`vypujcka`) REFERENCES `VYPUJCKA`(`id_vypujcky`) ON DELETE CASCADE,
+PRIMARY KEY(`vypujcka`,`doplnek`)
+)ENGINE=InnoDB;
 
-CREATE TABLE DOPLNEK_KATEGORIE(
-doplnek INT CONSTRAINT FK_doplnek
-REFERENCES DOPLNEK ON DELETE CASCADE,
-kategorie VARCHAR(20) CONSTRAINT FK_doplnek_kategorie
-REFERENCES KATEGORIE ON DELETE CASCADE,
-CONSTRAINT PK_doplnek_kategorie PRIMARY KEY(doplnek,kategorie)
-);
+CREATE TABLE `DOPLNEK_KATEGORIE`(
+`doplnek` INT,
+`kategorie` VARCHAR(20),
+PRIMARY KEY(`doplnek`,`kategorie`),
+KEY `doplnek` (`doplnek`),
+KEY `kategorie` (`kategorie`),
+CONSTRAINT `FK_doplnek` FOREIGN KEY (`doplnek`) REFERENCES `DOPLNEK`(`id_doplnku`) ON DELETE CASCADE,
+CONSTRAINT `FK_doplnek_kategorie` FOREIGN KEY(`kategorie`) REFERENCES `KATEGORIE`(`id_kategorie`) ON DELETE CASCADE
+)ENGINE=InnoDB;
 
-CREATE TABLE KOSTYM_KATEGORIE(
-kostym INT CONSTRAINT FK_kostym
-REFERENCES KOSTYM ON DELETE CASCADE,
-kategorie VARCHAR(20) CONSTRAINT FK_kostym_kategorie
-REFERENCES KATEGORIE ON DELETE CASCADE,
-CONSTRAINT PK_kostym_kategorie PRIMARY KEY(kostym,kategorie)
-);
+CREATE TABLE `KOSTYM_KATEGORIE`(
+`kostym` INT,
+`kategorie` VARCHAR(20),
+PRIMARY KEY(`kostym`,`kategorie`),
+KEY `kostym` (`kostym`),
+KEY `kategorie` (`kategorie`),
+CONSTRAINT `FK_kostym_kategorie` FOREIGN KEY(`kategorie`) REFERENCES `KATEGORIE`(`id_kategorie`) ON DELETE CASCADE,
+CONSTRAINT `FK_kostym` FOREIGN KEY(`kostym`)
+REFERENCES `KOSTYM`(`id_kostymu`) ON DELETE CASCADE
+)ENGINE=InnoDB;
 
