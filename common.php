@@ -31,7 +31,7 @@ function make_header($title)
                             <input type="submit" value="Přihlasit se">
                         </form>
                     </div>
-                    <a href="#">Zaregistrovat se</a>
+                    <a href="registration.php">Zaregistrovat se</a>
                 </div>
         </div>
         <div class="nav">

@@ -58,6 +58,32 @@ a{
     font-size: 12px;
     width: 120px;
 }
+
+.registration{
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+.registration form{
+    margin: 0 auto;
+}
+.registration label{
+    float: left;
+    width: 50%;
+    margin-left: 25px;
+    margin-top: 5px;
+}
+
+.registration input{
+    float: right;
+    width: 90%;
+    font-size: 14px;
+}
+
+.registration input[type=submit]{
+    width: auto;
+    margin: 20px auto;
+}
 .login-container{
     margin-left: 25px;
     float: right;
