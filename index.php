@@ -1,5 +1,6 @@
 <?php
 require "common.php";
+require "db_init.php";
 
 make_header("Uvodní strana");
 ?>

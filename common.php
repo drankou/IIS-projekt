@@ -20,7 +20,17 @@ function make_header($title)
                 </div>
                 <div class="logins">
                     <a href="#">Košík</a>
-                    <a href="#">Přihlásit se</a>
+                    <div class="login-container">
+                        <form action="login.php" method="post">
+                            <label for="login">Login</label>
+                            <input type="text" name="login" id="login"><br>
+
+                            <label for="password">Heslo</label>
+                            <input type="password" name="password" id="password"><br>
+
+                            <input type="submit" value="Přihlasit se">
+                        </form>
+                    </div>
                     <a href="#">Zaregistrovat se</a>
                 </div>
         </div>
