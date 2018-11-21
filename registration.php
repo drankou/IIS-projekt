@@ -7,7 +7,17 @@ make_header("Registrace");
 
 <div class="registration">
     <form action="registration.php" method="post">
+<<<<<<< HEAD
         <label for="personal_id">Rodné číslo</label>
+=======
+        <label for=login>Login*</label>
+        <input type="text" name="login" id="login"><br>
+
+        <label for="password">Heslo*</label>
+        <input type="password" name="password" id="password"><br>
+
+        <label for="personal_id">Rodné číslo*</label>
+>>>>>>> master
         <input type="text" name="personal_id" id="personal_id"><br>
 
         <label for="name">Jméno</label>

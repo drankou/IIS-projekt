@@ -81,8 +81,11 @@ a{
 }
 
 .registration input[type=submit]{
+<<<<<<< HEAD
     display: flex;
     justify-content: center;
+=======
+>>>>>>> master
     width: auto;
     margin: 20px auto;
 }
