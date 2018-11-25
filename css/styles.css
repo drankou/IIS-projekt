@@ -7,7 +7,7 @@ a{
 }
 
 .container{
-    width: 70%;
+    width: 80%;
     margin: auto;
     background-color: #efffff;
     border-radius: 15px;
@@ -81,14 +81,10 @@ a{
 }
 
 .registration input[type=submit]{
-<<<<<<< HEAD
-    display: flex;
-    justify-content: center;
-=======
->>>>>>> master
     width: auto;
     margin: 20px auto;
 }
+
 .login-container{
     margin-left: 25px;
     float: right;
@@ -97,10 +93,6 @@ a{
     display: flex;
     justify-content: center;
     background-color: black;
-}
-
-.logins{
-    /*margin: 0 50px;*/
 }
 
 ul {
@@ -128,5 +120,57 @@ li a:hover {
 }
 
 .footer{
+    text-align: center;
+}
+
+
+/*example----------------------------------*/
+/*https://www.w3schools.com/howto/howto_js_portfolio_filter.asp*/
+* {
+    box-sizing: border-box;
+}
+
+.row {
+    margin: 25px;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 20%;
+    display: block; /* Hide columns by default */
+}
+
+
+.row,
+.row > .column {
+    padding: 5px;
+}
+/* Clear floats after rows */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Content */
+.content {
+    height: 320px;
+    background-color: white;
+    padding: 5px;
+}
+
+.content img{
+    height: 240px;
+}
+
+.filterContainer{
+    width: auto;
+    height: 100px;
+    margin: auto;
+    border: black 2px solid;
+}
+
+h2{
     text-align: center;
 }

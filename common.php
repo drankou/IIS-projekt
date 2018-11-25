@@ -37,8 +37,8 @@ function make_header($title)
         <div class="nav">
             <ul>
                 <li><a href="index.php">Úvodní strana</a></li>
-                <li><a href="#">Kostýmy</a></li>
-                <li><a href="#">Doplňky</a></li>
+                <li><a href="costumes.php">Kostýmy</a></li>
+                <li><a href="accessories.php">Doplňky</a></li>
                 <li><a href="#">Obchodní podmínky</a></li>
                 <li><a href="#">Kontakty</a></li>
             </ul>
