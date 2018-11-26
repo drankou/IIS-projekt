@@ -1,7 +1,5 @@
 <?php
-
-session_start();
-
+//session_start();
 function make_header($title)
 {
     ?>
@@ -21,14 +19,26 @@ function make_header($title)
                 <div class="logins">
                     <a href="#">Košík</a>
                     <div class="login-container">
-                        <form action="login.php" method="post">
-                            <label for="login">Login</label>
-                            <input type="text" name="login" id="login"><br>
+                        <?php
+                            session_start();
+                            if(isset($_SESSION['login'])) {
+                                echo '<form action="login.php" method="post">
+                                        <p class=login-status"> Ste prihlásený</p>
+                                        <input type="submit" name="logout_btn" value="Odhlasit se">';
+                                }
+                            else {
+                                echo '<form action="login.php" method="post">
+                                        <label for="login">Login</label>
+                                        <input type="text" name="login" id="login"><br>
 
-                            <label for="password">Heslo</label>
-                            <input type="password" name="password" id="password"><br>
+                                        <label for="password">Heslo</label>
+                                        <input type="password" name="password" id="password"><br>
 
-                            <input type="submit" value="Přihlasit se">
+                                        <input type="submit" name="logout_btn" value="Odhlasit se">
+                                        <input type="submit" name="login_btn" value="Přihlasit se">';
+                            }
+
+                        ?>                      
                         </form>
                     </div>
                     <a href="registration.php">Zaregistrovat se</a>
@@ -45,7 +55,6 @@ function make_header($title)
         </div>
     <?php
 }
-
 function make_footer()
 {
     ?>
