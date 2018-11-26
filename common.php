@@ -23,7 +23,7 @@ function make_header($title)
                             session_start();
                             if(isset($_SESSION['login'])) {
                                 echo '<form action="login.php" method="post">
-                                        <p class=login-status"> Ste prihlásený</p>
+                                        <p class=login-status">'; echo "Ahoj, ", $_SESSION['login']; echo '</p>
                                         <input type="submit" name="logout_btn" value="Odhlasit se">';
                                 }
                             else {
@@ -34,10 +34,8 @@ function make_header($title)
                                         <label for="password">Heslo</label>
                                         <input type="password" name="password" id="password"><br>
 
-                                        <input type="submit" name="logout_btn" value="Odhlasit se">
                                         <input type="submit" name="login_btn" value="Přihlasit se">';
                             }
-
                         ?>                      
                         </form>
                     </div>

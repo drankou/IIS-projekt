@@ -30,20 +30,26 @@ KEY  `spravce` (  `spravce` ) ,
 KEY  `klient` (  `klient` ) ,
 CONSTRAINT  `FK_vypujcka_spravce` FOREIGN KEY (  `spravce` ) REFERENCES  `ZAMESTNANEC` (  `id_zamestnance` ) ,
 CONSTRAINT  `FK_vypujcka_klient` FOREIGN KEY (  `klient` ) REFERENCES  `KLIENT` (  `rodne_cislo` ) ON DELETE CASCADE
-) ENGINE = INNODB;
+)
+COLLATE latin2_czech_cs
+ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS `VYROBCE`(
 `id_vyrobce` INT,
 `nazev_firmy` VARCHAR(15) UNIQUE,
 `stat_firmy` VARCHAR(15),
 PRIMARY KEY(`id_vyrobce`)
-)ENGINE=InnoDB;
+)
+COLLATE latin2_czech_cs
+ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `KATEGORIE`(
 `id_kategorie` VARCHAR(20),
 `akce` VARCHAR(20),
 PRIMARY KEY(`id_kategorie`)
-)ENGINE=InnoDB;
+)
+COLLATE latin2_czech_cs
+ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `KOSTYM`(
 `id_kostymu` INT,
@@ -51,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `KOSTYM`(
 `barva` VARCHAR(20),
 `velikost` VARCHAR(3),
 `material` VARCHAR(20),
-`cena` NUMERIC(6) NOT NULL CHECK(`cena`>0),
+`cena` NUMERIC(6) NOT NULL,
 `datum_vyroby` DATE,
 `spravce` INT,
 `vyrobce` INT,
@@ -60,14 +66,16 @@ KEY `spravce` (`spravce`),
 KEY `vyrobce` (`vyrobce`),
 CONSTRAINT `FK_kostym_spravce` FOREIGN KEY(`spravce`) REFERENCES `ZAMESTNANEC` (`id_zamestnance`),
 CONSTRAINT `FK_kostym_vyrobce` FOREIGN KEY(`vyrobce`) REFERENCES `VYROBCE` (`id_vyrobce`)
-)ENGINE=InnoDB;
+)
+COLLATE latin2_czech_cs
+ENGINE=InnoDB;
 
 CREATE TABLE `DOPLNEK`(
 `id_doplnku` INT,
 `nazev` VARCHAR(20) NOT NULL,
 `barva` VARCHAR(20),
 `material` VARCHAR(20),
-`cena` NUMERIC(6) NOT NULL CHECK(cena>0),
+`cena` NUMERIC(6) NOT NULL,
 `datum_vyroby` DATE,
 `spravce` INT,
 `vyrobce` INT,
@@ -79,7 +87,9 @@ KEY `kostym` (`kostym`),
 CONSTRAINT `FK_doplnek_kostym` FOREIGN KEY(`kostym`) REFERENCES `KOSTYM` (`id_kostymu`) ON DELETE SET NULL,
 CONSTRAINT `FK_doplnek_spravce` FOREIGN KEY(`spravce`) REFERENCES `ZAMESTNANEC` (`id_zamestnance`),
 CONSTRAINT `FK_doplnek_vyrobce` FOREIGN KEY(`vyrobce`) REFERENCES `VYROBCE` (`id_vyrobce`)
-)ENGINE=InnoDB;
+)
+COLLATE latin2_czech_cs
+ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS`DODANI_KOSTYMU`(
 `vypujcka` INT,
@@ -89,7 +99,9 @@ KEY `vypujcka` (`vypujcka`),
 KEY `kostym` (`kostym`),
 CONSTRAINT `FK_dodani_kostymu_kostym` FOREIGN KEY(`kostym`) REFERENCES `KOSTYM`(`id_kostymu`) ON DELETE CASCADE,
 CONSTRAINT `FK_dodani_kostymu_vypujcka` FOREIGN KEY(`vypujcka`) REFERENCES `VYPUJCKA`(`id_vypujcky`) ON DELETE CASCADE
-)ENGINE=InnoDB;
+)
+COLLATE latin2_czech_cs
+ENGINE=InnoDB;
 
 CREATE TABLE `DODANI_DOPLNKU`(
 `vypujcka` INT,
@@ -99,7 +111,9 @@ KEY `doplnek` (`doplnek`),
 CONSTRAINT `FK_dodani_doplnku_doplnek` FOREIGN KEY(`doplnek`) REFERENCES `DOPLNEK`(`id_doplnku`) ON DELETE CASCADE,
 CONSTRAINT `FK_dodani_doplnku_vypujcka` FOREIGN KEY(`vypujcka`) REFERENCES `VYPUJCKA`(`id_vypujcky`) ON DELETE CASCADE,
 PRIMARY KEY(`vypujcka`,`doplnek`)
-)ENGINE=InnoDB;
+)
+COLLATE latin2_czech_cs
+ENGINE=InnoDB;
 
 CREATE TABLE `DOPLNEK_KATEGORIE`(
 `doplnek` INT,
@@ -109,7 +123,9 @@ KEY `doplnek` (`doplnek`),
 KEY `kategorie` (`kategorie`),
 CONSTRAINT `FK_doplnek` FOREIGN KEY (`doplnek`) REFERENCES `DOPLNEK`(`id_doplnku`) ON DELETE CASCADE,
 CONSTRAINT `FK_doplnek_kategorie` FOREIGN KEY(`kategorie`) REFERENCES `KATEGORIE`(`id_kategorie`) ON DELETE CASCADE
-)ENGINE=InnoDB;
+)
+COLLATE latin2_czech_cs
+ENGINE=InnoDB;
 
 CREATE TABLE `KOSTYM_KATEGORIE`(
 `kostym` INT,
@@ -120,4 +136,6 @@ KEY `kategorie` (`kategorie`),
 CONSTRAINT `FK_kostym_kategorie` FOREIGN KEY(`kategorie`) REFERENCES `KATEGORIE`(`id_kategorie`) ON DELETE CASCADE,
 CONSTRAINT `FK_kostym` FOREIGN KEY(`kostym`)
 REFERENCES `KOSTYM`(`id_kostymu`) ON DELETE CASCADE
-)ENGINE=InnoDB;
+)
+COLLATE latin2_czech_cs
+ENGINE=InnoDB;
