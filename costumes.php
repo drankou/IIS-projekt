@@ -10,55 +10,33 @@ make_header("Kostýmy");
     DIFFERENT FILTERS WILL BE HERE
 </div>
 
-
 <div class="row">
     <?php
-//        db query to get all costumes
-//        iterate through costumes and echo html code
-//        <div class="column nature">
-//        <div class="content">
-//            <img src="/images/bart.jpg" alt="Bart" style="width:100%">
-//            <h4>Bart Simpson</h4>
-//        </div>
-//    </div>
-//        where src,alt,h4 will change depends on picture
+    $sql = "SELECT * FROM KOSTYM";  //default - show all costumes
+    $result = mysqli_query($db, $sql);
+
+
+    if (mysqli_num_rows($result) > 0){
+        while($row = mysqli_fetch_array($result)){
+            $costume_name = $row["nazev"];
+            $price = $row["cena"];
+            $image = $row["filepath"];
+
+            echo '<div class="column">
+                    <div class="content">
+                        <img src='.$image.' alt='.$costume_name.'style="width:100%">
+                        <div class="product_info">
+                            <h4>'.$costume_name.'</h4>
+                            <h4>Cena: '.$price.'</h4>
+                        </div>
+                    </div>
+                  </div>';
+        }
+    }else{
+        echo 'Sorry, no costumes available.';
+    }
     ?>
-    <div class="column">
-        <div class="content">
-            <img src="/images/costumes/bart.jpg" alt="Bart" style="width:100%">
-            <h4>Bart Simpson</h4>
-        </div>
-    </div>
-    <div class="column">
-        <div class="content">
-            <img src="/images/costumes/kostra.jpg" alt="Kostra" style="width:100%">
-            <h4>Kostra</h4>
-        </div>
-    </div>
-    <div class="column">
-        <div class="content">
-            <img src="/images/costumes/shrek.jpg" alt="Shrek" style="width:100%">
-            <h4>Shrek</h4>
-        </div>
-    </div>
-    <div class="column">
-        <div class="content">
-            <img src="/images/costumes/jahodka.jpg" alt="Jahodka" style="width:100%">
-            <h4>Jahodka</h4>
-        </div>
-    </div>
-    <div class="column nature">
-        <div class="content">
-            <img src="/images/costumes/mimon.jpg" alt="Mimon" style="width:100%">
-            <h4>Mimon</h4>
-        </div>
-    </div>
-    <div class="column">
-        <div class="content">
-            <img src="/images/costumes/carman.jpg" alt="Carman" style="width:100%">
-            <h4>Carman</h4>
-        </div>
-    </div>
+
 </div>
 
 

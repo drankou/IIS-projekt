@@ -131,13 +131,13 @@ li a:hover {
 }
 
 .row {
-    margin: 25px;
+    margin: 30px;
 }
 
 /* Create three equal columns that floats next to each other */
 .column {
     float: left;
-    width: 20%;
+    width: 25%;
     display: block; /* Hide columns by default */
 }
 
@@ -155,13 +155,15 @@ li a:hover {
 
 /* Content */
 .content {
-    height: 320px;
+    height: 340px;
     background-color: white;
-    padding: 5px;
+    border-radius: 10px;
 }
 
 .content img{
     height: 240px;
+    width: 100%;
+    padding: 10px;
 }
 
 .filterContainer{
@@ -172,5 +174,9 @@ li a:hover {
 }
 
 h2{
+    text-align: center;
+}
+
+.product_info{
     text-align: center;
 }
