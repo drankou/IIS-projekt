@@ -120,6 +120,7 @@ li a:hover {
 }
 
 .footer{
+    margin-top: 50px;
     text-align: center;
 }
 
@@ -168,9 +169,8 @@ li a:hover {
 
 .filterContainer{
     width: auto;
-    height: 100px;
-    margin: auto;
-    border: black 2px solid;
+    height: auto;
+    padding: 20px;
 }
 
 h2{
@@ -179,4 +179,70 @@ h2{
 
 .product_info{
     text-align: center;
+}
+
+.product-container {
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+}
+
+.product-description{
+    width: 100%;
+}
+
+.left-column {
+    width: 50%;
+}
+
+
+.left-column img {
+    margin-top: 80px;
+    margin-left: 40px;
+    width: 70%;
+}
+
+.right-column {
+    width: 50%;
+    margin: 60px;
+}
+
+.product-price{
+    float: left;
+    width: 100%;
+    height: auto;
+    margin-top: 30px;
+}
+
+.product-description {
+    height: 100%;
+}
+
+.description-point{
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.cart-btn{
+    margin-top: 20px;
+    margin-right: 100px;
+    float: right;
+}
+
+.price-controls input{
+    width:75px;
+    padding:8px 10px;
+    margin-left:10px;
+    border:none;
+    font-size:16px;
+    text-align:center;
+}
+
+.min-price {
+    margin-right:14px;
+}
+
+.filterContainer input[type=submit]{
+    margin: 15px;
 }

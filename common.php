@@ -17,7 +17,7 @@ function make_header($title)
                     <a href="index.php">Půjčovna kostýmů</a>
                 </div>
                 <div class="logins">
-                    <a href="#">Košík</a>
+                    <a href="cart.php">Košík</a>
                     <div class="login-container">
                         <?php
                             session_start();
@@ -70,7 +70,6 @@ function make_footer()
 }
 
 function get_products($db, $sql){
-    //$sql = "SELECT * FROM KOSTYM";  //default - show all costumes
     $result = mysqli_query($db, $sql);
 
 
@@ -79,10 +78,18 @@ function get_products($db, $sql){
             $costume_name = $row["nazev"];
             $price = $row["cena"];
             $image = $row["filepath"];
+            $color = $row["barva"];
+            $manufacter = $row["vyrobce"];
+            $material = $row["material"];
+            $manager = $row["spravce"];
+            $size = $row["velikost"];
 
             echo '<div class="column">
                     <div class="content">
-                        <img src='.$image.' alt='.$costume_name.'>
+                        <a href="product.php?name=',$costume_name,'&price=',$price,'&image=',$image,
+                        '&material=',$material,'&manufacter=',$manufacter,'&size=',$size,'">
+                            <img src='.$image.' alt='.$costume_name.'>
+                        </a>
                         <div class="product_info">
                             <h4>'.$costume_name.'</h4>
                             <h4>Cena: '.$price.'</h4>
@@ -92,4 +99,17 @@ function get_products($db, $sql){
         }
     }else
         echo 'Sorry, no costumes available.';
+}
+
+function filterContainer($min_price, $max_price, $page){
+    echo '<div class="filterContainer">
+    <form class="filter-form" action="',$page,'" method="post">
+        <div class="price-controls">
+            Cena
+            od <input name="min-price" type="text" value="',$min_price,'">
+            do <input name="max-price" type="text" value="',$max_price,'">
+        </div>
+        <input type="submit" name="search_btn" value="Hledat">
+    </form>
+    </div>';
 }
