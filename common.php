@@ -1,5 +1,9 @@
 <?php
-//session_start();
+session_start();
+
+if (!isset($_SESSION["cart_array"])){
+    $_SESSION["cart_array"] = [];
+}
 function make_header($title)
 {
     ?>
@@ -17,10 +21,9 @@ function make_header($title)
                     <a href="index.php">Půjčovna kostýmů</a>
                 </div>
                 <div class="logins">
-                    <a href="cart.php">Košík</a>
+                    <a href="cart.php">Košík(<?php echo count($_SESSION["cart_array"])?>)</a>
                     <div class="login-container">
                         <?php
-                            session_start();
                             if(isset($_SESSION['login'])) {
                                 echo '<form action="login.php" method="post">
                                         <p class=login-status">'; echo "Ahoj, ", $_SESSION['login']; echo '</p>
@@ -69,28 +72,33 @@ function make_footer()
     <?php
 }
 
-function get_products($db, $sql){
+function get_products($db, $sql, $product){
     $result = mysqli_query($db, $sql);
 
 
     if (mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_array($result)){
             $product_id = $row["id"];
-            $costume_name = $row["nazev"];
+            $product_name = $row["nazev"];
             $price = $row["cena"];
             $image = $row["filepath"];
             $color = $row["barva"];
             $manufacter = $row["vyrobce"];
             $material = $row["material"];
             $manager = $row["spravce"];
-            $size = $row["velikost"];
+            if ($product == "costumes"){
+                $size = $row["velikost"];
+            }else {
+                $size = null;
+            }
+
 
             echo '<div class="column">
                     <div class="content">
                         <form action="product.php" method="post">
                             <input type="text" name="price" value="'.$price.'" hidden>
                             <input type="text" name="color" value="'.$color.'" hidden>
-                            <input type="text" name="costume_name" value="'.$costume_name.'" hidden>
+                            <input type="text" name="product_name" value="'.$product_name.'" hidden>
                             <input type="text" name="product_id" value="'.$product_id.'" hidden>
                             <input type="text" name="manufacter" value="'.$manufacter.'" hidden>
                             <input type="text" name="size" value="'.$size.'" hidden>
@@ -98,10 +106,10 @@ function get_products($db, $sql){
                             <input type="text" name="material" value="'.$material.'" hidden>
                             <input type="text" name="image_src" value="'.$image.'" hidden>
                     
-                            <input type="image" name="image" src='.$image.'  alt="',$costume_name,'">
+                            <input type="image" name="image" src='.$image.'  alt="',$product_name,'">
                         </form>
                         <div class="product_info">
-                            <h4>'.$costume_name.'</h4>
+                            <h4>'.$product_name.'</h4>
                             <h4>Cena: '.$price.'</h4>
                         </div>
                     </div>

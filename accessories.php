@@ -23,7 +23,7 @@ make_header("Doplňky");
         }else {
             $sql = "SELECT * FROM DOPLNEK";  //default - show all accessories
         }
-        get_products($db, $sql);
+        get_products($db, $sql, "accessories");
     ?>
 </div>
 

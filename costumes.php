@@ -22,7 +22,7 @@ filterContainer($min_price, $max_price, "costumes.php");
     }else {
         $sql = "SELECT * FROM KOSTYM";  //default - show all accessories
     }
-    get_products($db, $sql);
+    get_products($db, $sql, "costumes");
     ?>
 
 </div>
