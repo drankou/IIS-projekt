@@ -6,10 +6,6 @@ make_header("Košík");
 
 echo '<h1 align="center"> Košík </h1>';
 
-    if (count($_SESSION['cart_array']) == 0){
-        echo '<h3 align="left"> Košík je prázdný </h3>';
-    }
-
 // Script for shopping cart
 if(isset($_POST['product_id'])){
 	$product_id = $_POST['product_id'];
@@ -45,6 +41,10 @@ if(isset($_POST['product_id'])){
 	}
 }
 
+
+if (count($_SESSION['cart_array']) == 0){
+    echo '<h3 align="left"> Košík je prázdný </h3>';
+}
 //script for render the cart for the user to view
 $cartOutput = "";
 if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
