@@ -105,6 +105,7 @@ function get_products($db, $sql, $product){
                             <input type="text" name="manager" value="'.$manager.'" hidden>
                             <input type="text" name="material" value="'.$material.'" hidden>
                             <input type="text" name="image_src" value="'.$image.'" hidden>
+                            <input type="text" name="product_type" value="'.$product.'" hidden>
                     
                             <input type="image" name="image" src='.$image.'  alt="',$product_name,'">
                         </form>
@@ -130,4 +131,42 @@ function filterContainer($min_price, $max_price, $page){
         <input type="submit" name="search_btn" value="Hledat">
     </form>
     </div>';
+}
+
+function get_related_products($db, $product_id){
+    $sql = "SELECT * FROM DOPLNEK WHERE kostym='$product_id' LIMIT 4";
+    $result = mysqli_query($db, $sql);
+
+    if (mysqli_num_rows($result) > 0) {
+        echo '<span>Možné doplňky:</span><br/>';
+        while ($row = mysqli_fetch_array($result)) {
+            $product_id = $row["id"];
+            $product_name = $row["nazev"];
+            $price = $row["cena"];
+            $image = $row["filepath"];
+            $color = $row["barva"];
+            $manufacter = $row["vyrobce"];
+            $material = $row["material"];
+            $manager = $row["spravce"];
+            $product = "accessories";
+            $size = null;
+
+            echo '<div class="related-product-img">
+                  <form action="product.php" method="post">
+                      <input type="text" name="price" value="'.$price.'" hidden>
+                      <input type="text" name="color" value="'.$color.'" hidden>
+                      <input type="text" name="product_name" value="'.$product_name.'" hidden>
+                      <input type="text" name="product_id" value="'.$product_id.'" hidden>
+                      <input type="text" name="manufacter" value="'.$manufacter.'" hidden>
+                      <input type="text" name="manager" value="'.$manager.'" hidden>
+                      <input type="text" name="material" value="'.$material.'" hidden>
+                      <input type="text" name="image_src" value="'.$image.'" hidden>
+                      <input type="text" name="product_type" value="'.$product.'" hidden>
+                      <input type="text" name="size" value="'.$size.'" hidden>
+                    
+                      <input type="image" name="image" src='.$image.'  alt="',$product_name,'">
+                  </form>
+                  </div>';
+        }
+    }
 }

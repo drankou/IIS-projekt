@@ -46,6 +46,8 @@ if (count($_SESSION['cart_array']) == 0){
     echo '<h3 align="left"> Košík je prázdný </h3>';
 }
 //script for render the cart for the user to view
+
+
 $cartOutput = "";
 if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
 	$cartOutput = "<h2 align='center'> Košík je prázdný</h2>";

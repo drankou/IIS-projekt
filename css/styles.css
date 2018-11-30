@@ -135,26 +135,23 @@ li a:hover {
     margin: 30px;
 }
 
-/* Create three equal columns that floats next to each other */
 .column {
     float: left;
     width: 25%;
     display: block; /* Hide columns by default */
 }
 
-
 .row,
 .row > .column {
     padding: 5px;
 }
-/* Clear floats after rows */
+
 .row:after {
     content: "";
     display: table;
     clear: both;
 }
 
-/* Content */
 .content {
     height: 340px;
     background-color: white;
@@ -245,4 +242,23 @@ h2{
 
 .filterContainer input[type=submit]{
     margin: 15px;
+}
+
+.related-products{
+    margin-top: 20px;
+    float: left;
+    width: 100%;
+    height: auto;
+}
+
+.related-product-img{
+    margin-top: 10px;
+    margin-left: 15px;
+    float: left;
+    width: 20%;
+}
+
+.related-product-img input[type=image]{
+    width: 100%;
+    height: auto;
 }
