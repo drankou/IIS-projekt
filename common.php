@@ -128,6 +128,10 @@ function filterContainer($min_price, $max_price, $page){
             od <input name="min-price" type="text" value="',$min_price,'">
             do <input name="max-price" type="text" value="',$max_price,'">
         </div>
+        <div class="ordering-controls">
+            <a href="'.$page.'?mode=ascending">od nejlevnejsiho</a>
+            <a href="'.$page.'?mode=descending">od nejdrazsiho</a>            
+        </div>
         <input type="submit" name="search_btn" value="Hledat">
     </form>
     </div>';

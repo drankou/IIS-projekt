@@ -23,6 +23,14 @@ make_header("Doplňky");
         }else {
             $sql = "SELECT * FROM DOPLNEK";  //default - show all accessories
         }
+        if (isset($_GET['mode'])){
+            $mode = $_GET['mode'];
+            if ($mode == "ascending"){
+                $sql = "SELECT * FROM ($sql) as price_range ORDER BY cena ASC";
+            } elseif ($mode == "descending"){
+                $sql = "SELECT * FROM ($sql) as price_range ORDER BY cena DESC";
+            }
+        }
         get_products($db, $sql, "accessories");
     ?>
 </div>
