@@ -13,6 +13,7 @@ if (isset($_POST['image_x'], $_POST['image_y'])) {   //should be this way becaus
     $size = $_POST['size'];
     $manager = $_POST['manager'];
     $color = $_POST['color'];
+    $quantity = $_POST['quantity'];
 }
 
 make_header($product_name);
@@ -38,6 +39,9 @@ make_header($product_name);
             <div class="description-point">
                 <span>Material: <?php echo $material?></span><br>
             </div>
+             <div class="description-point">
+                <span>Počet dostupných kusů: <?php echo $quantity?></span><br>
+            </div>
             <?php
                 if ($product_type == "costumes"){
             ?>
@@ -60,6 +64,7 @@ make_header($product_name);
                     <input type="text" name="manager" value="<?php echo $manager?>" hidden>
                     <input type="text" name="material" value="<?php echo $material?>" hidden>
                     <input type="text" name="image_src" value="<?php echo $image_src?>" hidden>
+                    <input type="text" name="quantity" value= "<?php echo $quantity?>" hidden>
 
                     <input type="submit" value="Přidat do košíku">
                 </form>
