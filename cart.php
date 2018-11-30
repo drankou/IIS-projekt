@@ -11,23 +11,24 @@ if(isset($_POST['product_id'])){
 	$product_id = $_POST['product_id'];
     $product_name = $_POST['product_name'];
     $price = $_POST['price'];
+    $image_src = $_POST['image_src'];
 
 	$wasFound = false;
 	$i = 0;
 	//if the cart session variable is not set or cart array is empty
 	if(!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
 		// run if the cart is empty or not set
-		$_SESSION["cart_array"] = array(1=> array("product_id" => $product_id, "quantity" => 1,
-                                                  "name" => $product_name, "price" => $price));
+		$_SESSION["cart_array"] = array(0=> array("product_id" => $product_id, "quantity" => 1,
+                                                  "name" => $product_name, "price" => $price, "image" => $image_src));
 	} else {
 		// run if the cart has at least one item in it
 		foreach($_SESSION["cart_array"] as $item){
 			$i++;
 			while (list($key, $value) = each($item)) {
 				if ($key == "product_id" && $value == $product_id){
-					// that item is in cart already so lets adjust its quantity using array_splice()
+					// that item is in cart already so lets adjust its quantity and price using array_splice()
 					array_splice($_SESSION["cart_array"], $i-1,1,
-                        array(array("product_id" => $product_id, "name" => $product_name,
+                        array(array("product_id" => $product_id, "name" => $product_name, "image" => $image_src,
                             "price" => (int)$price * ((int)$item['quantity'] + 1), "quantity" => $item['quantity'] + 1)));
 					$wasFound = true;
 				}
@@ -36,7 +37,7 @@ if(isset($_POST['product_id'])){
 
 		if($wasFound == false) {
 			array_push($_SESSION["cart_array"], array("product_id" => $product_id, "quantity" => 1,
-                "name" => $product_name, "price" => $price));
+                "name" => $product_name, "price" => $price, "image" => $image_src));
 		}
 	}
 }
@@ -52,32 +53,86 @@ $cartOutput = "";
 if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
 	$cartOutput = "<h2 align='center'> Košík je prázdný</h2>";
 } else {
-	$i = 0;
-	$total_price = 0;
-	foreach ($_SESSION["cart_array"] as $item) {
-		$i++;
-		$id = $item['product_id'];
+    echo '<table class="tbl-cart">
+            <tbody>
+            <tr>
+                <th>Nazev</th>
+                <th width="20%">ID produktu</th>
+                <th width="20%">Pocet kusu</th>
+                <th width="15%">Cena</th>
+                <th width="5%">Smazat</th>       
+            </tr>';
+    $i = 0;
+    $total_price = 0;
+    foreach ($_SESSION["cart_array"] as $item) {
+        $i++;
+        $id = $item['product_id'];
         $product_name = $item['name'];
         $price = $item['price'];
         $total_price += $price;
         $quantity = $item['quantity'];
-		$cartOutput = '<h2> Položka číslo'.$i.'</h2>
-                       Nazev :"'.$product_name.'"<br/>
-                       Cena :"'.$price.'"<br/>
-                       Pocet :"'.$quantity.'ks"<br/>';
-        echo $cartOutput;
-	}
-    echo 'Total price: '.$total_price.'<br/>';
+        ?>
+        <tr>
+<!--            <img src="--><?php //echo $item["image_src"]; ?><!--" class="cart-item-image"/>-->
+            <td><?php echo $item["name"]; ?></td>
+            <td><?php echo $id; ?></td>
+            <td><?php echo $item["quantity"]; ?></td>
+            <td><?php echo $item["price"]." kč"; ?></td>
+            <td><a href="cart.php?cmd=remove_item&id=<?php echo $item["product_id"]; ?>" class="btnRemoveAction"><img
+                            src="images/icons/icon-delete.png" alt="Remove Item"/></a></td>
+        </tr>
+        <?php
+    }
+    ?>
+            </tbody>
+        </table>
+<!--        echo 'Total price: ' . $total_price . '<br/>';-->
+        <div class="cart-total-price">
+            <span>Celková suma: <?php echo $total_price;?></span>
+        </div>
+<?php
 }
 
-// script (if user chooses to empty thier shopping cart)
-if(isset($_GET['cmd']) && $_GET['cmd'] == "emptycart"){
+// script (if user chooses to empty their shopping cart)
+if(isset($_GET['cmd']) && $_GET['cmd'] == "empty_cart"){
 	unset($_SESSION["cart_array"]);
     header("Location: /cart.php");
+}elseif (isset($_GET['cmd']) && $_GET['cmd'] == "remove_item"){
+    $remove_id = $_GET['id'];
+    $i = 0;
+    foreach($_SESSION["cart_array"] as $item){
+        if ($item['product_id'] == $remove_id){
+            $key = array_search($item, $_SESSION["cart_array"]);
+            if ($item['quantity'] > 1) {
+//
+                $quantity = $_SESSION["cart_array"][$key]["quantity"];
+                $price = $_SESSION["cart_array"][$key]["price"];
+
+                $_SESSION["cart_array"][$key]["quantity"] -= 1;
+                $_SESSION["cart_array"][$key]["price"] = $price/$quantity * $_SESSION["cart_array"][$key]["quantity"] ;
+            }else{
+                if (count($_SESSION['cart_array']) == 1){
+                    $_SESSION["cart_array"] = [];
+                }else{
+                    unset($_SESSION["cart_array"][$key]);
+                }
+            }
+            header("Location: /cart.php");
+        }
+    }
 }
 
 if (count($_SESSION['cart_array']) > 0){
-    echo '<a align="left" href = "cart.php?cmd=emptycart">Vyprázdnit košík </a>';
+    ?>
+    <div class="cart-btn-container">
+        <div class="cart-order-btn">
+            <a href = "cart.php?cmd=#"><button type="button">Objednat</button></a>
+        </div>
+        <div class="cart-clear-btn">
+            <a href = "cart.php?cmd=empty_cart"><button type="button">Vyprázdnit košík</button></a>
+        </div>
+    </div>
+<?php
 }
 
 make_footer();

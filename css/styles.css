@@ -119,8 +119,8 @@ li a:hover {
     color: black;
 }
 
-.footer{
-    margin-top: 50px;
+footer{
+    margin-top: 150px;
     text-align: center;
 }
 
@@ -262,3 +262,50 @@ h2{
     width: 100%;
     height: auto;
 }
+
+.tbl-cart{
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+
+.tbl-cart tr{
+    line-height: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th,td{
+    padding: 10px;
+}
+
+.tbl-cart img{
+    height: 15px;
+}
+
+.cart-total-price{
+    width: 100%;
+    float: right;
+    margin-top: 30px;
+    text-align: right;
+}
+
+.cart-total-price span{
+    margin-right: 250px;
+}
+
+.cart-btn-container{
+    width: 300px;
+    height: 100px;
+    float: right;
+    margin-right: 140px;
+}
+
+.cart-clear-btn,.cart-order-btn{
+    float: right;
+    margin-top: 30px;
+    margin-right: 25px;
+}
+
