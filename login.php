@@ -14,10 +14,12 @@ make_header("Přihlašení");
     	$password = $_POST['password'];		// tu treba hash heslo kvoli bezpecnosti
     	$sql = "SELECT * FROM KLIENT WHERE login='$login' AND heslo='$password'";
     	$result = mysqli_query($db, $sql);
+      $row = mysqli_fetch_array($result);
 
     	if (mysqli_num_rows($result) == 1) {
-    		$_SESSION['message'] = "Jste přihlášen";
+    		$_SESSION['message'] = "Jste přihlášen";     
     		$_SESSION['login'] = $login;
+        $_SESSION['id'] = $row['rodne_cislo'];
     		header('location:index.php');    		 		 		
        	} else{
        		echo '<p>Špatné jméno nebo heslo.</p>';   // tu nejake vyskakovacie okno ze zle prihlasenie
