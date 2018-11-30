@@ -1,7 +1,7 @@
 <?php
 require "common.php";
 require "db_init.php";
-//session_start();
+
 make_header("Historie");
 ?>
 <h2> Seznam výpůjček</h2>

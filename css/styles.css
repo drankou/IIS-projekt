@@ -16,7 +16,7 @@ a{
 }
 
 .header {
-    height: 80px;
+    height: 100px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -34,8 +34,8 @@ a{
 .logins a{
     float: left;
     display: block;
-    margin: auto;
-    padding: 20px;
+    margin-top: 20px;
+    padding: 10px;
     color: black;
 }
 
@@ -50,6 +50,7 @@ a{
     float: left;
 }
 .logins input[type=submit]{
+    margin-top: 10px;
     width: auto;
 }
 .logins input{
@@ -88,6 +89,15 @@ a{
 .login-container{
     margin-left: 25px;
     float: right;
+    margin-right: 30px;
+}
+
+.login-container a{
+    margin-top: 0;
+}
+
+.login-container input[type=submit]{
+    margin-right: 5px;
 }
 .nav{
     display: flex;

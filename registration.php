@@ -26,11 +26,11 @@ if (isset($_POST['register_btn'])) {
     
 
     //select for login
-    $sql_l = "SELECT * FROM klient where login='$login'";
+    $sql_l = "SELECT * FROM KLIENT where login='$login'";
     //select for email
-    $sql_e = "SELECT * FROM klient where email ='$email'";
+    $sql_e = "SELECT * FROM KLIENT where email ='$email'";
     //select for personal id
-    $sql_i = "SELECT * FROM klient where rodne_cislo = '$personal_id'";
+    $sql_i = "SELECT * FROM KLIENT where rodne_cislo = '$personal_id'";
     //result for earch select
     $res_l = mysqli_query($db,$sql_l) or die(mysqli_error($db));
     $res_e = mysqli_query($db,$sql_e) or die(mysqli_error($db));

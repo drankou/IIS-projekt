@@ -95,7 +95,8 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
 
 // script (if user chooses to empty their shopping cart)
 if(isset($_GET['cmd']) && $_GET['cmd'] == "empty_cart"){
-	unset($_SESSION["cart_array"]);
+	//unset($_SESSION["cart_array"]);
+	$_SESSION["cart_array"] = [];
     header("Location: /cart.php");
 }elseif (isset($_GET['cmd']) && $_GET['cmd'] == "remove_item"){
     $remove_id = $_GET['id'];

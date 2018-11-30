@@ -22,12 +22,13 @@ function make_header($title)
                 </div>
                 <div class="logins">
                     <a href="cart.php">Košík(<?php echo count($_SESSION["cart_array"])?>)</a>
+                    <?php if(!isset($_SESSION['login'])){ echo '<a href="registration.php">Zaregistrovat se</a>';}?>
                     <div class="login-container">
                         <?php
                             if(isset($_SESSION['login'])) {
-                                echo '<form action="login.php" method="post">
-                                        <p class=login-status">'; echo "Ahoj, ", $_SESSION['login']; echo '</p>
-                                        <input type="submit" name="logout_btn" value="Odhlasit se">';
+                                echo '  <a href="details.php"><button>Muj Ucet</button></a>
+                                        <form action="login.php" method="post">
+                                            <input type="submit" name="logout_btn" value="Odhlasit se">';
                                 }
                             else {
                                 echo '<form action="login.php" method="post">
@@ -42,7 +43,6 @@ function make_header($title)
                         ?>                      
                         </form>
                     </div>
-                    <a href="registration.php">Zaregistrovat se</a>
                 </div>
         </div>
         <div class="nav">
