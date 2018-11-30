@@ -145,7 +145,7 @@ if (isset($_POST['register_btn'])) {
         <label for="tel_number">Tel. číslo</label>
         <input type="tel" name="tel_number" id="tel_number"><br>
 
-        <label for="city">Městoooooooooo</label>
+        <label for="city">Město</label>
         <input type="text" name="city" id="city"><br>
 
         <label for="address">Adresa</label>
