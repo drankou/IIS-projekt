@@ -23,9 +23,7 @@ if (isset($_POST['register_btn'])) {
     $adjust = (date("md") >= date("md", $birthdate)) ? 0 : -1;
     $years = date("Y") - date("Y", $birthdate);
     $age = $years + $adjust;
-
-     //INSERT udajov do tabulky
-    $sql = "INSERT INTO KLIENT(rodne_cislo, login, heslo, jmeno, prijmeni, tel_cislo, ulice, mesto, vek) VALUES ('$personal_id', '$login', '$password', '$name', '$surname', '$tel_number', '$address', '$city', '$age')";
+    
     if (mysqli_query($db, $sql)) {
         echo '<div class="registration">
                 <h4>Jste uspesne zaregistrovan. Muzete se prihlasit</h4>
@@ -39,6 +37,8 @@ if (isset($_POST['register_btn'])) {
                     <input type="submit" name="login_btn" value="Přihlasit se">
                 </form>
               </div>';
+            //INSERT udajov do tabulky
+            $sql = "INSERT INTO KLIENT(rodne_cislo, login, heslo, jmeno, prijmeni, tel_cislo, ulice, mesto, vek) VALUES ('$personal_id', '$login', '$password', '$name', '$surname', '$tel_number', '$address', '$city', '$age')";
     } else {    //TODO error message handling using error_no(same name, duplicity and so on)
                 //print out message to user and ask to try again
         echo "Error: " . $sql . "<br>" . mysqli_errno($db);
@@ -60,8 +60,8 @@ if (isset($_POST['register_btn'])) {
                     <label for="surname">Příjmení</label>
                     <input type="text" name="surname" id="surname"><br>
             
-                    <label for="email">E-mail</label>
-                    <input type="email" name="email" id="email"><br>
+                    <label for="email">E-mail*</label>
+                    <input type="email" name="email" id="email" required><br>
             
             
                     <label for="tel_number">Tel. číslo</label>
@@ -98,8 +98,8 @@ if (isset($_POST['register_btn'])) {
         <label for="surname">Příjmení</label>
         <input type="text" name="surname" id="surname"><br>
 
-        <label for="email">E-mail</label>
-        <input type="email" name="email" id="email"><br>
+        <label for="email">E-mail*</label>
+        <input type="email" name="email" id="email" required><br>
 
 
         <label for="tel_number">Tel. číslo</label>
