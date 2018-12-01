@@ -91,18 +91,21 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
         <div class="cart-total-price">
             <span>Celková suma: <?php echo $total_price;?></span>
         </div>
-    <div class="cart-date-range">
-        <form method="post" action="details.php">
-            <label for="rent_date">Datum pujceni</label>
-            <input type="date" name="rent_date" id="rent_date" value="<?php echo date("Y-m-d");?>"><br>
-            <label for="return_date">Datum vraceni</label>
-            <input type="date" name="return_date" id="return_date" value="<?php echo date("Y-m-d");?>"><br>
-            <input type="number" name="total_price" value="<?php echo $total_price?>" hidden>
+    <?php if(isset($_SESSION['login'])) { ?>
+        <div class="cart-date-range">
+            <form method="post" action="details.php">
+                <label for="rent_date">Datum pujceni</label>
+                <input type="date" name="rent_date" id="rent_date" value="<?php echo date("Y-m-d"); ?>"><br>
+                <label for="return_date">Datum vraceni</label>
+                <input type="date" name="return_date" id="return_date" value="<?php echo date("Y-m-d"); ?>"><br>
+                <input type="number" name="total_price" value="<?php echo $total_price ?>" hidden>
 
-            <input type="submit" name="reserve-btn" value="Objednat">
-        </form>
-    </div>
-<?php
+                <input type="submit" name="reserve-btn" value="Objednat">
+            </form>
+        </div>
+
+        <?php
+    }
 }
 
 // script (if user chooses to empty their shopping cart)

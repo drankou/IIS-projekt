@@ -26,7 +26,8 @@ function make_header($title)
                 </div>
                 <div class="logins">
                     <?php if ($_SESSION['user'] == "client" || $_SESSION['user'] == "visitor") {
-                            echo '<a href="cart.php">Košík(<?php echo count($_SESSION["cart_array"])?>)</a>';
+                        $items_number = count($_SESSION["cart_array"]);
+                        echo '<a href="cart.php">Košík('.$items_number.')</a>';
                         }
                         ?>
                     <?php if(!isset($_SESSION['login'])){ echo '<a href="registration.php">Zaregistrovat se</a>';}?>
