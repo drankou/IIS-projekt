@@ -25,13 +25,23 @@ if (isset($_POST['reserve-btn'])){
     foreach ($_SESSION['cart_array'] as $item){
         $product_type = $item['type'];
         $product_id = $item['product_id'];
+        $quantity = $item['quantity'];
         if ($product_type == "costumes"){
             $sql = "INSERT INTO DODANI_KOSTYMU(vypujcka, kostym) VALUES ('$order_id', '$product_id')";
             if (!mysqli_query($db, $sql)){
                 echo("Error description: " . mysqli_error($db));
             }
+
+            $sql = "UPDATE KOSTYM SET pocet_kusu=pocet_kusu -'$quantity' WHERE id='$product_id'";
+            if (!mysqli_query($db, $sql)){
+                echo("Error description: " . mysqli_error($db));
+            }
         }else if ($product_type == "accessories"){
             $sql = "INSERT INTO DODANI_DOPLNKU(vypujcka, doplnek) VALUES ('$order_id', '$product_id')";
+            if (!mysqli_query($db, $sql)){
+                echo("Error description: " . mysqli_error($db));
+            }
+            $sql = "UPDATE DOPLNEK SET pocet_kusu=pocet_kusu -'$quantity' WHERE id='$product_id'";
             if (!mysqli_query($db, $sql)){
                 echo("Error description: " . mysqli_error($db));
             }

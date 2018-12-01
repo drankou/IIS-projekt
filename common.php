@@ -92,13 +92,13 @@ function get_products($db, $sql, $product){
             $manufacter = $row["vyrobce"];
             $material = $row["material"];
             $manager = $row["spravce"];
+            $quantity = $row["pocet_kusu"];
             if ($product == "costumes"){
                 $size = $row["velikost"];
             }else {
                 $size = null;
             }
-
-
+            if ($quantity > 0){
             echo '<div class="column">
                     <div class="content">
                         <form action="product.php" method="post">
@@ -112,6 +112,7 @@ function get_products($db, $sql, $product){
                             <input type="text" name="material" value="'.$material.'" hidden>
                             <input type="text" name="image_src" value="'.$image.'" hidden>
                             <input type="text" name="product_type" value="'.$product.'" hidden>
+                            <input type="text" name="quantity" value="'.$quantity.'" hidden>
                     
                             <input type="image" name="image" src='.$image.'  alt="',$product_name,'">
                         </form>
@@ -121,6 +122,11 @@ function get_products($db, $sql, $product){
                         </div>
                     </div>
                   </div>';
+              }
+              else
+              {
+                continue;
+              }
         }
     }else
         echo 'Sorry, no costumes available.';
@@ -158,9 +164,12 @@ function get_related_products($db, $product_id){
             $manufacter = $row["vyrobce"];
             $material = $row["material"];
             $manager = $row["spravce"];
+            $quantity = $row["pocet_kusu"];
+
             $product = "accessories";
             $size = null;
 
+            if ($quantity > 0){
             echo '<div class="related-product-img">
                   <form action="product.php" method="post">
                       <input type="text" name="price" value="'.$price.'" hidden>
@@ -173,10 +182,16 @@ function get_related_products($db, $product_id){
                       <input type="text" name="image_src" value="'.$image.'" hidden>
                       <input type="text" name="product_type" value="'.$product.'" hidden>
                       <input type="text" name="size" value="'.$size.'" hidden>
+                      <input type="text" name="quantity" value="'.$quantity.'" hidden>
                     
                       <input type="image" name="image" src='.$image.'  alt="',$product_name,'">
                   </form>
                   </div>';
+              }
+              else
+              {
+                continue;
+              }
         }
     }
 }
