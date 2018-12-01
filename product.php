@@ -60,6 +60,7 @@ make_header($product_name);
                     <input type="text" name="manager" value="<?php echo $manager?>" hidden>
                     <input type="text" name="material" value="<?php echo $material?>" hidden>
                     <input type="text" name="image_src" value="<?php echo $image_src?>" hidden>
+                    <input type="text" name="product_type" value="<?php echo $product_type?>" hidden>
 
                     <input type="submit" value="Přidat do košíku">
                 </form>

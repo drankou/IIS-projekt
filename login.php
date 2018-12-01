@@ -16,10 +16,27 @@ make_header("Přihlašení");
     	$result = mysqli_query($db, $sql);
 
     	if (mysqli_num_rows($result) == 1) {
-    		$_SESSION['message'] = "Jste přihlášen";
+    		//$_SESSION['message'] = "Jste přihlášen jako klient";
     		$_SESSION['login'] = $login;
-    		header('location:index.php');    		 		 		
-       	} else{
+    		$_SESSION['user'] = "client";
+    		$row = mysqli_fetch_array($result);
+    		if ($row['login'] == "admin"){
+                $_SESSION['user'] = "admin";
+            }
+    		$_SESSION['user_id'] = $row['rodne_cislo'];
+    		header('location:index.php');
+    	} else {
+            $sql = "SELECT * FROM ZAMESTNANEC WHERE login='$login' AND heslo='$password'";
+            $result = mysqli_query($db, $sql);
+
+            if (mysqli_num_rows($result) == 1) {
+                //$_SESSION['message'] = "Jste přihlášen jako zamestnanec";
+                $_SESSION['login'] = $login;
+                $_SESSION['user'] = "employee";
+                $row = mysqli_fetch_array($result);
+                $_SESSION['user_id'] = $row['id_zamestnance'];
+                header('location:index.php');
+            }
        		echo '<p>Špatné jméno nebo heslo.</p>';   // tu nejake vyskakovacie okno ze zle prihlasenie
        	}
      

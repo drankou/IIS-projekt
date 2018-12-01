@@ -12,13 +12,14 @@ if(isset($_POST['product_id'])){
     $product_name = $_POST['product_name'];
     $price = $_POST['price'];
     $image_src = $_POST['image_src'];
+    $product_type = $_POST['product_type'];
 
 	$wasFound = false;
 	$i = 0;
 	//if the cart session variable is not set or cart array is empty
 	if(!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
 		// run if the cart is empty or not set
-		$_SESSION["cart_array"] = array(0=> array("product_id" => $product_id, "quantity" => 1,
+		$_SESSION["cart_array"] = array(0=> array("product_id" => $product_id, "quantity" => 1, "type" => $product_type,
                                                   "name" => $product_name, "price" => $price, "image" => $image_src));
 	} else {
 		// run if the cart has at least one item in it
@@ -28,7 +29,7 @@ if(isset($_POST['product_id'])){
 				if ($key == "product_id" && $value == $product_id){
 					// that item is in cart already so lets adjust its quantity and price using array_splice()
 					array_splice($_SESSION["cart_array"], $i-1,1,
-                        array(array("product_id" => $product_id, "name" => $product_name, "image" => $image_src,
+                        array(array("product_id" => $product_id, "name" => $product_name, "image" => $image_src, "type" => $product_type,
                             "price" => (int)$price * ((int)$item['quantity'] + 1), "quantity" => $item['quantity'] + 1)));
 					$wasFound = true;
 				}
@@ -36,7 +37,7 @@ if(isset($_POST['product_id'])){
 		}
 
 		if($wasFound == false) {
-			array_push($_SESSION["cart_array"], array("product_id" => $product_id, "quantity" => 1,
+			array_push($_SESSION["cart_array"], array("product_id" => $product_id, "quantity" => 1, "type" => $product_type,
                 "name" => $product_name, "price" => $price, "image" => $image_src));
 		}
 	}
@@ -90,6 +91,17 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
         <div class="cart-total-price">
             <span>Celková suma: <?php echo $total_price;?></span>
         </div>
+    <div class="cart-date-range">
+        <form method="post" action="details.php">
+            <label for="rent_date">Datum pujceni</label>
+            <input type="date" name="rent_date" id="rent_date" value="<?php echo date("Y-m-d");?>"><br>
+            <label for="return_date">Datum vraceni</label>
+            <input type="date" name="return_date" id="return_date" value="<?php echo date("Y-m-d");?>"><br>
+            <input type="number" name="total_price" value="<?php echo $total_price?>" hidden>
+
+            <input type="submit" name="reserve-btn" value="Objednat">
+        </form>
+    </div>
 <?php
 }
 
@@ -126,9 +138,6 @@ if(isset($_GET['cmd']) && $_GET['cmd'] == "empty_cart"){
 if (count($_SESSION['cart_array']) > 0){
     ?>
     <div class="cart-btn-container">
-        <div class="cart-order-btn">
-            <a href = "cart.php?cmd=#"><button type="button">Objednat</button></a>
-        </div>
         <div class="cart-clear-btn">
             <a href = "cart.php?cmd=empty_cart"><button type="button">Vyprázdnit košík</button></a>
         </div>

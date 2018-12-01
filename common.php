@@ -4,6 +4,10 @@ session_start();
 if (!isset($_SESSION["cart_array"])){
     $_SESSION["cart_array"] = [];
 }
+
+if (!isset($_SESSION['user'])){
+    $_SESSION['user'] = "visitor";
+}
 function make_header($title)
 {
     ?>
@@ -21,7 +25,10 @@ function make_header($title)
                     <a href="index.php">Půjčovna kostýmů</a>
                 </div>
                 <div class="logins">
-                    <a href="cart.php">Košík(<?php echo count($_SESSION["cart_array"])?>)</a>
+                    <?php if ($_SESSION['user'] == "client" || $_SESSION['user'] == "visitor") {
+                            echo '<a href="cart.php">Košík(<?php echo count($_SESSION["cart_array"])?>)</a>';
+                        }
+                        ?>
                     <?php if(!isset($_SESSION['login'])){ echo '<a href="registration.php">Zaregistrovat se</a>';}?>
                     <div class="login-container">
                         <?php
@@ -50,7 +57,6 @@ function make_header($title)
                 <li><a href="index.php">Úvodní strana</a></li>
                 <li><a href="costumes.php">Kostýmy</a></li>
                 <li><a href="accessories.php">Doplňky</a></li>
-                <li><a href="#">Obchodní podmínky</a></li>
                 <li><a href="#">Kontakty</a></li>
             </ul>
         </div>
