@@ -10,7 +10,7 @@ echo "<h2> Informace o zamestnancoch </h2>";
 <?php
 
 // Select all employee
-$sql = "SELECT * FROM zamestnanec";
+$sql = "SELECT * FROM ZAMESTNANEC";
 $result = mysqli_query($db,$sql) or die(mysqli_error($db));
 
 if (mysqli_num_rows($result) > 0){

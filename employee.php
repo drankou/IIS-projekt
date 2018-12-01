@@ -100,7 +100,7 @@ if (isset($_POST['register_acces'])) {
 
 	// COSTUMES TABLE
     echo '<h2> Kostymy </h2>';
- 	$sql = "SELECT * FROM kostym";
+ 	$sql = "SELECT * FROM KOSTYM";
 	$result = mysqli_query($db,$sql) or die(mysqli_error($db));
 
 if (mysqli_num_rows($result) > 0){
@@ -139,7 +139,7 @@ if (mysqli_num_rows($result) > 0){
 
 	// ACCESSIORIES TABLE
     echo '<h2> Doplnky </h2>';
- 	$sql = "SELECT * FROM doplnek";
+ 	$sql = "SELECT * FROM DOPLNEK";
 	$result = mysqli_query($db,$sql) or die(mysqli_error($db));
 
 if (mysqli_num_rows($result) > 0){
@@ -180,7 +180,7 @@ if (mysqli_num_rows($result) > 0){
 
         if(isset($_GET['cmd']) && $_GET['cmd'] == "remove_costume"){
         	$remove_id = $_GET['id'];
-        	$sql = "DELETE FROM kostym where id=$remove_id";
+        	$sql = "DELETE FROM KOSTYM where id=$remove_id";
         	if (mysqli_query($db, $sql)){        		
         		header("Location: /employee.php?cmd=success");
 
@@ -195,7 +195,7 @@ if (mysqli_num_rows($result) > 0){
         // DELETE ACCESORIES
        if(isset($_GET['cmd']) && $_GET['cmd'] == "remove_accessiories"){
         	$remove_id = $_GET['id'];
-        	$sql = "DELETE FROM doplnek where id=$remove_id";
+        	$sql = "DELETE FROM DOPLNEK where id=$remove_id";
         	if (mysqli_query($db, $sql)){        		
         		header("Location: /employee.php");
         	} else {
@@ -332,4 +332,15 @@ if (mysqli_num_rows($result) > 0){
 
 <?php
 make_footer();
+
+//    elseif ($_SESSION['user'] == "employee") {
+//        //display all proccesed orders by employee
+//        $login = $_SESSION['login'];
+//        $sql = "SELECT * FROM ZAMESTNANEC WHERE login='$login'";
+//
+//        $result = mysqli_query($db, $sql);
+//        $row = mysqli_fetch_array($result);
+//        $employee_id = $row['id_zamestnance'];
+//    }
+
 ?>

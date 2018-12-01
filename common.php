@@ -33,7 +33,7 @@ function make_header($title)
                         <?php
                             if(isset($_SESSION['login']) ) {
                                 if ($_SESSION['user'] == "client"){
-                                echo '  <a href="details.php"><button>Muj Ucet</button></a>
+                                echo '  <a href="client.php"><button>Muj Ucet</button></a>
                                         <form action="login.php" method="post">
                                             <input type="submit" name="logout_btn" value="Odhlasit se">';
                                 } else if ($_SESSION['user'] =="admin"){
