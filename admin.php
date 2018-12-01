@@ -3,7 +3,7 @@ require "common.php";
 require "db_init.php";
 
 make_header("Admin");
-echo "<h2> Informace o zamestnanoch </h2>";
+echo "<h2> Informace o zamestnancoch </h2>";
 ?>
 
 
@@ -19,6 +19,7 @@ if (mysqli_num_rows($result) > 0){
 		<th width="10%"> ID zamestanca </th>
 		<th width="12%">  Jmeno </th>
 		<th> Prijmeni</th>
+		<th> Login </th>
 		<th> pozice </th> 
 		<th width="12%" > telefon </th> 
 		<th width="10%">  vyhodit </th>
@@ -29,6 +30,7 @@ if (mysqli_num_rows($result) > 0){
         <td><?php echo $row["id_zamestnance"]; ?></td>
 		<td><?php echo $row["jmeno"]; ?></td>
 		<td><?php echo $row["prijmeni"]; ?></td>
+		<td><?php echo $row["login"]; ?></td>
 		<td><?php echo $row["pozice"]; ?></td>
 		<td><?php echo $row["telefon"]; ?></td>
 		<td> <a href ="admin.php?cmd=remove_employee&id= <?php echo $row["id_zamestnance"];?>" class="btnRemoveAction"><img
@@ -44,7 +46,7 @@ if (mysqli_num_rows($result) > 0){
         	echo '<p> Nejsou uz zamestnanci</p>';
         }
 
-// remove employee
+		// remove employee
         if(isset($_GET['cmd']) && $_GET['cmd'] == "remove_employee"){
         	$remove_id = $_GET['id'];
         	$sql = "DELETE FROM zamestnanec where id_zamestnance=$remove_id";
@@ -62,55 +64,39 @@ if (mysqli_num_rows($result) > 0){
 
         }
 
-        if(isset($_GET['cmd']) && $_GET['cmd'] == "sucess"){
-        	echo '<div class="isa_success">
-                 <i class="fa fa-times-circle"></i>
-                     Podarilo sa odstranit zamestnanca </div>';
-
-        }
-	$url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI']; 
-	if (strpos($url,'login') !== false) {         
-         echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
-                     Login je již zabraný </div>';
-                     } 
-
-
-
  // ADD employee
- if (isset($_POST['register_emplo'])) {      
-    $name = ($_POST['add_name']);
-    $surname = ($_POST['add_surname']);    
-    $position = ($_POST['add_position']);
-    $login = ($_POST['add_login']);
-    $password = ($_POST['add_password']);
-    $number = ($_POST['add_telnumber']); 
-	
-    $sql_l = "SELECT * FROM zamestnanec where login='$login'";
-    $res_l = mysqli_query($db,$sql_l) or die(mysqli_error($db));
-	if(mysqli_num_rows($res_l) > 0){        
-        header('location:admin.php?signup=login');
-    }
-    $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];    
-    if (strpos($url,'login') !== false) {         
-         echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
-                     Login je již zabraný </div>'; }
-   else {
-    $sql = "INSERT INTO zamestnanec(jmeno, prijmeni, pozice, telefon, login, heslo) VALUES ('$name', '$surname', '$position', '$number', '$login', '$password')";
-    if (mysqli_query($db, $sql)) {
-    	     	 echo '<div class="isa_success">
-                 <i class="fa fa-times-circle"></i>
-                     Zamestnanec uspesne pridan </div>';
-                     header("Location: /admin.php");
-     } else {   
-     			echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
-                     Nepodarilo sa priat zamestnanca skuste to znova </div>';  	
+	 if (isset($_POST['register_emplo'])) {      
+	    $name = ($_POST['add_name']);
+	    $surname = ($_POST['add_surname']);    
+	    $position = ($_POST['add_position']);
+	    $login = ($_POST['add_login']);
+	    $password = ($_POST['add_password']);
+	    $number = ($_POST['add_telnumber']); 
+		
+	    $sql_l = "SELECT * FROM zamestnanec where login='$login'";
+	    $res_l = mysqli_query($db,$sql_l) or die(mysqli_error($db));
+		if(mysqli_num_rows($res_l) > 0){     
+		echo '<div class="isa_error">
+	                 <i class="fa fa-times-circle"></i>
+	                     Login je již zabraný </div>';           
+	    }    
+	   else {
+	    $sql = "INSERT INTO zamestnanec(jmeno, prijmeni, pozice, telefon, login, heslo) VALUES ('$name', '$surname', '$position', '$number', '$login', '$password')";
+	    if (mysqli_query($db, $sql)) {
+	    	     	 echo '<div class="isa_success">
+	                 <i class="fa fa-times-circle"></i>
+	                     Zamestnanec uspesne pridan </div>';
+	                     header("Location: /admin.php");
+	     } else {   
+	     			echo '<div class="isa_error">
+	                 <i class="fa fa-times-circle"></i>
+	                     Nepodarilo sa priat zamestnanca skuste to znova </div>';  	
 
-    	 }   	
-    }    
-}
+	    	 }
+	    	    	
+	    } 
+	      
+	}
 
 
       
