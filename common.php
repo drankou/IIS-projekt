@@ -67,7 +67,7 @@ function make_header($title)
                 <li><a href="index.php">Úvodní strana</a></li>
                 <li><a href="costumes.php">Kostýmy</a></li>
                 <li><a href="accessories.php">Doplňky</a></li>
-                <li><a href="admin.php">Kontakty</a></li>
+                <li><a href="#">Kontakty</a></li>
             </ul>
         </div>
     <?php
