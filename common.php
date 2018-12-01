@@ -31,11 +31,24 @@ function make_header($title)
                     <?php if(!isset($_SESSION['login'])){ echo '<a href="registration.php">Zaregistrovat se</a>';}?>
                     <div class="login-container">
                         <?php
-                            if(isset($_SESSION['login'])) {
+                            if(isset($_SESSION['login']) ) {
+                                if ($_SESSION['user'] == "client"){
                                 echo '  <a href="details.php"><button>Muj Ucet</button></a>
                                         <form action="login.php" method="post">
                                             <input type="submit" name="logout_btn" value="Odhlasit se">';
-                                }
+                                } else if ($_SESSION['user'] =="admin"){
+                                    echo '  <a href="admin.php"><button>Muj Ucet</button></a>
+                                        <form action="login.php" method="post">
+                                            <input type="submit" name="logout_btn" value="Odhlasit se">';
+                                }  else if ($_SESSION['user'] == "employee"){
+                                    echo '  <a href="employee.php"><button>Muj Ucet</button></a>
+                                        <form action="login.php" method="post">
+                                            <input type="submit" name="logout_btn" value="Odhlasit se">';
+                                }                  
+                                 
+
+                            }
+
                             else {
                                 echo '<form action="login.php" method="post">
                                         <label for="login">Login</label>
@@ -54,7 +67,7 @@ function make_header($title)
                 <li><a href="index.php">Úvodní strana</a></li>
                 <li><a href="costumes.php">Kostýmy</a></li>
                 <li><a href="accessories.php">Doplňky</a></li>
-                <li><a href="#">Kontakty</a></li>
+                <li><a href="admin.php">Kontakty</a></li>
             </ul>
         </div>
     <?php
