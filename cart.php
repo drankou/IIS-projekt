@@ -1,58 +1,49 @@
 <?php
 require "common.php";
 require "db_init.php";
-
 make_header("Košík");
-
 echo '<h1 align="center"> Košík </h1>';
-
 // Script for shopping cart
 if(isset($_POST['product_id'])){
-	$product_id = $_POST['product_id'];
+    $product_id = $_POST['product_id'];
     $product_name = $_POST['product_name'];
     $price = $_POST['price'];
     $image_src = $_POST['image_src'];
     $product_type = $_POST['product_type'];
-
-	$wasFound = false;
-	$i = 0;
-	//if the cart session variable is not set or cart array is empty
-	if(!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
-		// run if the cart is empty or not set
-		$_SESSION["cart_array"] = array(0=> array("product_id" => $product_id, "quantity" => 1, "type" => $product_type,
+    $wasFound = false;
+    $i = 0;
+    //if the cart session variable is not set or cart array is empty
+    if(!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
+        // run if the cart is empty or not set
+        $_SESSION["cart_array"] = array(0=> array("product_id" => $product_id, "quantity" => 1, "type" => $product_type,
                                                   "name" => $product_name, "price" => $price, "image" => $image_src));
-	} else {
-		// run if the cart has at least one item in it
-		foreach($_SESSION["cart_array"] as $item){
-			$i++;
-			while (list($key, $value) = each($item)) {
-				if ($key == "product_id" && $value == $product_id){
-					// that item is in cart already so lets adjust its quantity and price using array_splice()
-					array_splice($_SESSION["cart_array"], $i-1,1,
+    } else {
+        // run if the cart has at least one item in it
+        foreach($_SESSION["cart_array"] as $item){
+            $i++;
+            while (list($key, $value) = each($item)) {
+                if ($key == "product_id" && $value == $product_id){
+                    // that item is in cart already so lets adjust its quantity and price using array_splice()
+                    array_splice($_SESSION["cart_array"], $i-1,1,
                         array(array("product_id" => $product_id, "name" => $product_name, "image" => $image_src, "type" => $product_type,
                             "price" => (int)$price * ((int)$item['quantity'] + 1), "quantity" => $item['quantity'] + 1)));
-					$wasFound = true;
-				}
-			}
-		}
-
-		if($wasFound == false) {
-			array_push($_SESSION["cart_array"], array("product_id" => $product_id, "quantity" => 1, "type" => $product_type,
+                    $wasFound = true;
+                }
+            }
+        }
+        if($wasFound == false) {
+            array_push($_SESSION["cart_array"], array("product_id" => $product_id, "quantity" => 1, "type" => $product_type,
                 "name" => $product_name, "price" => $price, "image" => $image_src));
-		}
-	}
+        }
+    }
 }
-
-
 if (count($_SESSION['cart_array']) == 0){
     echo '<h3 align="left"> Košík je prázdný </h3>';
 }
 //script for render the cart for the user to view
-
-
 $cartOutput = "";
 if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
-	$cartOutput = "<h2 align='center'> Košík je prázdný</h2>";
+    $cartOutput = "<h2 align='center'> Košík je prázdný</h2>";
 } else {
     echo '<table class="tbl-cart">
             <tbody>
@@ -107,11 +98,10 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
         <?php
     }
 }
-
 // script (if user chooses to empty their shopping cart)
 if(isset($_GET['cmd']) && $_GET['cmd'] == "empty_cart"){
-	//unset($_SESSION["cart_array"]);
-	$_SESSION["cart_array"] = [];
+    //unset($_SESSION["cart_array"]);
+    $_SESSION["cart_array"] = [];
     header("Location: /cart.php");
 }elseif (isset($_GET['cmd']) && $_GET['cmd'] == "remove_item"){
     $remove_id = $_GET['id'];
@@ -123,7 +113,6 @@ if(isset($_GET['cmd']) && $_GET['cmd'] == "empty_cart"){
 //
                 $quantity = $_SESSION["cart_array"][$key]["quantity"];
                 $price = $_SESSION["cart_array"][$key]["price"];
-
                 $_SESSION["cart_array"][$key]["quantity"] -= 1;
                 $_SESSION["cart_array"][$key]["price"] = $price/$quantity * $_SESSION["cart_array"][$key]["quantity"] ;
             }else{
@@ -137,7 +126,6 @@ if(isset($_GET['cmd']) && $_GET['cmd'] == "empty_cart"){
         }
     }
 }
-
 if (count($_SESSION['cart_array']) > 0){
     ?>
     <div class="cart-btn-container">
@@ -147,6 +135,5 @@ if (count($_SESSION['cart_array']) > 0){
     </div>
 <?php
 }
-
 make_footer();
 ?>

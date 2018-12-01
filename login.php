@@ -11,10 +11,10 @@ make_header("Přihlašení");
 	// PRIHLASENIE
 	if (isset($_POST['login_btn'])) {
     	$login = $_POST['login'];
-    	$password = $_POST['password'];		// tu treba hash heslo kvoli bezpecnosti
+    	$password = $_POST['password'];		// tu treba hash heslo kvoli bezpecnosti       
     	$sql = "SELECT * FROM KLIENT WHERE login='$login' AND heslo='$password'";
     	$result = mysqli_query($db, $sql);
-      $row = mysqli_fetch_array($result);
+        $row = mysqli_fetch_array($result);
 
     	if (mysqli_num_rows($result) == 1) {
     		//$_SESSION['message'] = "Jste přihlášen jako klient";
@@ -27,8 +27,8 @@ make_header("Přihlašení");
     		header('location:index.php');
     	} else {
             $sql = "SELECT * FROM ZAMESTNANEC WHERE login='$login' AND heslo='$password'";
-            $result = mysqli_query($db, $sql);
-            $row = mysqli_fetch_array($result);
+            $result = mysqli_query($db, $sql) or die (mysqli_error($db));
+          //  $row = mysqli_fetch_array($result);
 
             if (mysqli_num_rows($result) == 1) {
                 //$_SESSION['message'] = "Jste přihlášen jako zamestnanec";
@@ -37,7 +37,9 @@ make_header("Přihlašení");
                 $_SESSION['user_id'] = $row['id_zamestnance'];
                 header('location:index.php');
             }
-       		echo '<p>Špatné jméno nebo heslo.</p>';   // tu nejake vyskakovacie okno ze zle prihlasenie
+       		 echo '<div class="isa_error">
+                 <i class="fa fa-times-circle"></i>
+                     Špatné meno nebo heslo </div>'; // tu nejake vyskakovacie okno ze zle prihlasenie
        	}
      
    	}

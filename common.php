@@ -1,10 +1,8 @@
 <?php
 session_start();
-
 if (!isset($_SESSION["cart_array"])){
     $_SESSION["cart_array"] = [];
 }
-
 if (!isset($_SESSION['user'])){
     $_SESSION['user'] = "visitor";
 }
@@ -41,11 +39,9 @@ function make_header($title)
                             else {
                                 echo '<form action="login.php" method="post">
                                         <label for="login">Login</label>
-                                        <input type="text" name="login" id="login"><br>
-
+                                        <input type="text" name="login" id="login" required><br>
                                         <label for="password">Heslo</label>
-                                        <input type="password" name="password" id="password"><br>
-
+                                        <input type="password" name="password" id="password" required><br>
                                         <input type="submit" name="login_btn" value="Přihlasit se">';
                             }
                         ?>                      
@@ -78,11 +74,8 @@ function make_footer()
     </html>
     <?php
 }
-
 function get_products($db, $sql, $product){
     $result = mysqli_query($db, $sql);
-
-
     if (mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_array($result)){
             $product_id = $row["id"];
@@ -132,7 +125,6 @@ function get_products($db, $sql, $product){
     }else
         echo 'Sorry, no costumes available.';
 }
-
 function filterContainer($min_price, $max_price, $page){
     echo '<div class="filterContainer">
     <form class="filter-form" action="',$page,'" method="post">
@@ -149,11 +141,9 @@ function filterContainer($min_price, $max_price, $page){
     </form>
     </div>';
 }
-
 function get_related_products($db, $product_id){
     $sql = "SELECT * FROM DOPLNEK WHERE kostym='$product_id' LIMIT 4";
     $result = mysqli_query($db, $sql);
-
     if (mysqli_num_rows($result) > 0) {
         echo '<span>Možné doplňky:</span><br/>';
         while ($row = mysqli_fetch_array($result)) {
@@ -166,10 +156,8 @@ function get_related_products($db, $product_id){
             $material = $row["material"];
             $manager = $row["spravce"];
             $quantity = $row["pocet_kusu"];
-
             $product = "accessories";
             $size = null;
-
             if ($quantity > 0){
             echo '<div class="related-product-img">
                   <form action="product.php" method="post">
