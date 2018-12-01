@@ -277,6 +277,7 @@ h2{
     width: 70%;
     margin: auto;
     text-align: center;
+
 }
 
 .tbl-cart tr{
@@ -324,4 +325,28 @@ margin: 10px 0px;
 padding:12px;
 color: #D8000C;
 background-color: #FFD2D2; 
+}
+
+.tbl-employ{
+    width: 70%;
+    margin: auto;
+    text-align:center;
+}
+
+.tbl-employ{
+    width: 70%;
+    margin: auto;
+    text-align: center;
+    align-self: left;
+}
+
+.tbl-employ tr{
+    line-height: 20px;
+}
+
+.isa_success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    margin: 10px 0px;
+    padding:12px;
 }
