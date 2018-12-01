@@ -20,7 +20,6 @@ make_header("Přihlašení");
     		//$_SESSION['message'] = "Jste přihlášen jako klient";
     		$_SESSION['login'] = $login;
     		$_SESSION['user'] = "client";
-    		$row = mysqli_fetch_array($result);
     		if ($row['login'] == "admin"){
                 $_SESSION['user'] = "admin";
             }
@@ -29,12 +28,12 @@ make_header("Přihlašení");
     	} else {
             $sql = "SELECT * FROM ZAMESTNANEC WHERE login='$login' AND heslo='$password'";
             $result = mysqli_query($db, $sql);
+            $row = mysqli_fetch_array($result);
 
             if (mysqli_num_rows($result) == 1) {
                 //$_SESSION['message'] = "Jste přihlášen jako zamestnanec";
                 $_SESSION['login'] = $login;
                 $_SESSION['user'] = "employee";
-                $row = mysqli_fetch_array($result);
                 $_SESSION['user_id'] = $row['id_zamestnance'];
                 header('location:index.php');
             }
