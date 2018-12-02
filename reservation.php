@@ -19,7 +19,7 @@ if (isset($_POST['reserve-btn'])){
 
     if (!mysqli_query($db, $sql)){
         echo("Error description: " . mysqli_error($db));
-        echo '<div class="isa_success">
+        echo '<div class="isa_error">
                 <p>Omlouvame se, nastala interni chyba. Zkuste znovu pozdeji</p>
               </div>';
     }
@@ -55,7 +55,7 @@ if (isset($_POST['reserve-btn'])){
 }
 
 echo '<div class="isa_success">
-        <p>Objednavka probehla uspesne</p>
+        Objednavka probehla uspesne
       </div>';
 
 echo '<div>

@@ -9,6 +9,11 @@ echo "<h2> Informace o zamestnancoch </h2>";
 
 <?php
 
+if (isset($_GET['removed']) && $_GET['removed'] == "true"){
+    echo '<div class="isa_success">Zamestnanec uspesne odstranen</div>';
+}
+
+
 // Select all employee
 $sql = "SELECT * FROM ZAMESTNANEC";
 $result = mysqli_query($db,$sql) or die(mysqli_error($db));
@@ -16,7 +21,7 @@ $result = mysqli_query($db,$sql) or die(mysqli_error($db));
 if (mysqli_num_rows($result) > 0){
  echo '<table class="tbl-cart">
 	 	<tr>
-		<th width="10%"> ID zamestanca </th>
+		<th width="10%"> ID zamestnance </th>
 		<th width="12%">  Jmeno </th>
 		<th> Prijmeni</th>
 		<th> Login </th>
@@ -43,29 +48,24 @@ if (mysqli_num_rows($result) > 0){
             echo "</table>";
         }
         else {
-        	echo '<p> Nejsou uz zamestnanci</p>';
+        	echo '<p> Nejsou zadne zamestnanci</p>';
         }
 
 		// remove employee
         if(isset($_GET['cmd']) && $_GET['cmd'] == "remove_employee"){
         	$remove_id = $_GET['id'];
-        	$sql = "DELETE FROM zamestnanec where id_zamestnance=$remove_id";
+        	$sql = "DELETE FROM ZAMESTNANEC where id_zamestnance=$remove_id";
         	if (mysqli_query($db, $sql)){
-        		echo '<div class="isa_success">
-                 <i class="fa fa-times-circle"></i>
-                     Podarilo sa odstranit zamestnanca </div>';
-                     header("Location: /admin.php?cmd=success");
-
+        	    header("Location: /admin.php?removed=true");
         	} else {
+                echo("Error description: " . mysqli_error($db));
         		echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
-                     Nepodarilo sa odstranit zamestnanca </div>';
+                     Nepodarilo se odstranit zamestnance </div>';
         	}
-
         }
 
  // ADD employee
-	 if (isset($_POST['register_emplo'])) {      
+	 if (isset($_POST['add_employee'])) {
 	    $name = ($_POST['add_name']);
 	    $surname = ($_POST['add_surname']);    
 	    $position = ($_POST['add_position']);
@@ -73,23 +73,20 @@ if (mysqli_num_rows($result) > 0){
 	    $password = ($_POST['add_password']);
 	    $number = ($_POST['add_telnumber']); 
 		
-	    $sql_l = "SELECT * FROM zamestnanec where login='$login'";
+	    $sql_l = "SELECT * FROM ZAMESTNANEC where login='$login'";
 	    $res_l = mysqli_query($db,$sql_l) or die(mysqli_error($db));
 		if(mysqli_num_rows($res_l) > 0){     
 		echo '<div class="isa_error">
-	                 <i class="fa fa-times-circle"></i>
 	                     Login je již zabraný </div>';           
 	    }    
 	   else {
-	    $sql = "INSERT INTO zamestnanec(jmeno, prijmeni, pozice, telefon, login, heslo) VALUES ('$name', '$surname', '$position', '$number', '$login', '$password')";
+	    $sql = "INSERT INTO ZAMESTNANEC(jmeno, prijmeni, pozice, telefon, login, heslo) VALUES ('$name', '$surname', '$position', '$number', '$login', '$password')";
 	    if (mysqli_query($db, $sql)) {
 	    	     	 echo '<div class="isa_success">
-	                 <i class="fa fa-times-circle"></i>
 	                     Zamestnanec uspesne pridan </div>';
 	                     header("Location: /admin.php");
 	     } else {   
 	     			echo '<div class="isa_error">
-	                 <i class="fa fa-times-circle"></i>
 	                     Nepodarilo sa priat zamestnanca skuste to znova </div>';  	
 
 	    	 }
@@ -97,16 +94,9 @@ if (mysqli_num_rows($result) > 0){
 	    } 
 	      
 	}
-
-
-      
-
 ?>
-
-<div class ="grid_10">
-	<div class = "box round first">
-		<h3> Pridat zamestnanca </h3>
-		<div class="block">
+		<div class="add-employee">
+            <h3> Pridat zamestnanca </h3>
 			<form name ="form1" action="" method="post">
 				<table>
 					<tr>
@@ -134,12 +124,11 @@ if (mysqli_num_rows($result) > 0){
 						<td><input type="text" name="add_telnumber" placeholder="+421987654321"> </td>
 					</tr>					
 					<tr>
-						<td colspan="2" align="center"><input type ="submit" name= "register_emplo" value="Pridat Zamestnanca"></td>
+						<td colspan="2" align="center"><input type ="submit" name="add_employee" value="Pridat Zamestnanca"></td>
 					</tr>	
 				</table>
 			</form>
 		</div>
-	</div>
 
 <?php
 make_footer();

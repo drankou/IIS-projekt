@@ -1,12 +1,9 @@
 <?php
 require "common.php";
 require "db_init.php";
-//session_start();
 make_header("Přihlašení");
 ?>
 <?php
-	// lokalna databaza
-	//$db = mysqli_connect("localhost", "root", "", "iis");
 
 	// PRIHLASENIE
 	if (isset($_POST['login_btn'])) {
@@ -17,7 +14,6 @@ make_header("Přihlašení");
         $row = mysqli_fetch_array($result);
 
     	if (mysqli_num_rows($result) == 1) {
-    		//$_SESSION['message'] = "Jste přihlášen jako klient";
     		$_SESSION['login'] = $login;
     		$_SESSION['user'] = "client";
     		if ($row['login'] == "admin"){
@@ -28,10 +24,9 @@ make_header("Přihlašení");
     	} else {
             $sql = "SELECT * FROM ZAMESTNANEC WHERE login='$login' AND heslo='$password'";
             $result = mysqli_query($db, $sql) or die (mysqli_error($db));
-          //  $row = mysqli_fetch_array($result);
+          	$row = mysqli_fetch_array($result);
 
             if (mysqli_num_rows($result) == 1) {
-                //$_SESSION['message'] = "Jste přihlášen jako zamestnanec";
                 $_SESSION['login'] = $login;
                 $_SESSION['user'] = "employee";
                 $_SESSION['user_id'] = $row['id_zamestnance'];

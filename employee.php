@@ -7,11 +7,15 @@ make_header("Zaměstnanec");
 
 
 <?php
+if(isset($_GET['cmd']) && $_GET['cmd'] == "success") {
+    echo '<div class="isa_success">
+                     Polozka uspesne smazana</div>';
+}
 $allowed = array('jpg', 'jpeg', 'png', 'gif');
 
 
 // INSERT costume not working
-if (isset($_POST['register_cost'])) {      
+if (isset($_POST['add_costume'])) {
     $name = ($_POST['add_cost_name']);
     $color = ($_POST['add_cost_color']);    
     $material = ($_POST['add_cost_material']);
@@ -43,39 +47,31 @@ if (isset($_POST['register_cost'])) {
     			echo $fileDestination;
     			move_uploaded_file($fileTmpName, $fileDestination);
     			echo '<div class="isa_success">
-                 	<i class="fa fa-times-circle"></i>
-                     Uspesny upload obrazka </div>';
+                 	Uspesny upload obrazka </div>';
     		} else{
     			echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
                      Prilis velkej soubor </div>';
     		}
     	}
 
     } else {
     	echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
-                     Nepodporovany typ souboru </div>';
+                 Nepodporovany typ souboru </div>';
     }
     $sql = "INSERT INTO KOSTYM(nazev, barva, velikost, material, cena, datum_vyroby, spravce, vyrobce, filepath, pocet_kusu) VALUES('$name', '$color', '$material', '$price', '$date', '$employee', '$maker', '$fileDestination', '$quantity')";
 
      if (mysqli_query($db, $sql)) {
      	 echo '<div class="isa_success">
-                 <i class="fa fa-times-circle"></i>
                      Kostym byl uspesne pridan </div>';
      }
      else{
      	 echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
                      Nepodarilo se pridat kostym skuste to znova </div>';
      }
-
-   
-
-    }
+}
 
 // INSERT accessories not working
-if (isset($_POST['register_acces'])) {      
+if (isset($_POST['add_accessory'])) {
     $name = ($_POST['add_acces_name']);
     $color = ($_POST['add_acces_color']);    
     $material = ($_POST['add_acces_material']);
@@ -94,40 +90,129 @@ if (isset($_POST['register_acces'])) {
 
     $fileExt = explode('.', $fileName);
     $filesActualExt = strtolower(end($fileExt));
+}
 
+// COSTUMES TABLE
+echo '<h2> Vypujcky </h2>';
+$employee_id = $_SESSION['user_id'];
+$sql = "SELECT * FROM VYPUJCKA WHERE spravce = $employee_id";
+$result = mysqli_query($db,$sql) or die(mysqli_error($db));
+
+if (mysqli_num_rows($result) > 0){
+    echo '<table class="tbl-cart">
+	 	<tr>
+		<th width="10%"> ID vypujcky </th>
+		<th width="30%">  Datum pujceni </th>
+		<th width="30%"> Datum vraceni</th>
+		<th width="20%"> Klient(login)</th>  
+		<th width="10%">  Suma </th>
+		<th> Akceptovana </th>
+		<th> Prijmout platbu </th>
+		</tr>';
+    while($row = mysqli_fetch_array($result)) {
+        $reservation_id = $row["id_vypujcky"];
+        $reserve_date =  $row["datum_pujceni"];
+        $return_date = $row["datum_vraceni"];
+        $client_id = $row["klient"];
+        $total_price = $row["suma"];
+        $accepted = $row["accepted"];
+        $accepted = $accepted == 1 ? "Ano" : "Ne";
+
+        $sql = "SELECT * FROM KLIENT WHERE rodne_cislo ='$client_id'";
+        $tmp_result = mysqli_query($db, $sql);
+        $row = mysqli_fetch_array($tmp_result);
+        $client = $row['login'];
+        ?>
+        <tr>
+            <td><?php echo $reservation_id; ?></td>
+            <td><?php echo $reserve_date; ?></td>
+            <td><?php echo $return_date; ?></td>
+            <td><?php echo $client; ?></td>
+            <td><?php echo $total_price; ?></td>
+            <td><?php echo $accepted; ?></td>
+            <?php
+                if ($accepted == "Ano"){
+                    echo '<td>-</td>';
+                }else{
+                    echo '<td> <a href ="employee.php?cmd=accept&id='.$reservation_id.'" class="btnRemoveAction"><img
+                            src="images/icons/icon-accept.png" alt="Accept reservation"/></a></td>';
+                }
+            ?>
+
+        </tr>
+        <?php
     }
+    echo "</table>";
+}
+else {
+    echo '<p> Nejsou zadne vypujcky</p>';
+}
+
+if (isset($_GET['cmd']) && $_GET['cmd'] == "accept"){
+    $reservation_id = $_GET['id'];
+    $sql = "UPDATE VYPUJCKA SET accepted=1 WHERE id_vypujcky='$reservation_id'";
+    if (!mysqli_query($db, $sql)){
+        echo("Error description: " . mysqli_error($db));
+    }
+    header("location:employee.php");
+}
 
 
 	// COSTUMES TABLE
     echo '<h2> Kostymy </h2>';
- 	$sql = "SELECT * FROM KOSTYM";
-	$result = mysqli_query($db,$sql) or die(mysqli_error($db));
+    $employee_id = $_SESSION['user_id'];
+ 	$sql = "SELECT * FROM KOSTYM WHERE spravce = $employee_id";
+ 	$result = mysqli_query($db,$sql) or die(mysqli_error($db));
 
 if (mysqli_num_rows($result) > 0){
  echo '<table class="tbl-cart">
 	 	<tr>
 		<th width="10%"> ID kostymu </th>
-		<th width="12%">  Nazev </th>
-		<th> Vyrobce</th>
-		<th> Spravce </th> 
-		<th width="12%" > Pocet kusu </th> 
+		<th width="15%">  Nazev </th>
+		<th width="30%"> Vyrobce</th>
+		<th width="20%"> Spravce </th> 
+		<th width="5%" > Pocet kusu </th> 
 		<th width="10%">  Cena </th>
-		<th width="10%"> Zmazat </th>
+		<th width="5%"> Zmazat </th>
 		</tr>';
-        while($row = mysqli_fetch_array($result)) { ?>
+        while($row = mysqli_fetch_array($result)) {
+            $product_id = $row["id"];
+            $name =  $row["nazev"];
+            $manufacter = $row["vyrobce"];
+            $employee_id = $row['spravce'];
+            $quantity = $row["pocet_kusu"];
+            $price = $row["cena"];
 
+            $sql = "SELECT jmeno,prijmeni FROM ZAMESTNANEC WHERE id_zamestnance='$employee_id'";
+            $tmp_result = mysqli_query($db, $sql);
+            $row = mysqli_fetch_array($tmp_result);
+            $employee_name = $row['jmeno'].' '.$row['prijmeni'];
+            if ($employee_name == " "){
+                $employee_name = "Undefined";
+            }
+
+            $sql = "SELECT * FROM VYROBCE WHERE id_vyrobce='$manufacter'";
+            $tmp_result = mysqli_query($db, $sql);
+            if (!$tmp_result){
+                echo("Error description: " . mysqli_error($db));
+            }
+            $row = mysqli_fetch_array($tmp_result);
+            $firm = $row['nazev_firmy'].'('.$row['stat_firmy'].')';
+            if ($firm == '()'){
+                $firm = "Unknown";
+            }
+
+            ?>
         <tr> 
-        <td><?php echo $row["id"]; ?></td>
-        <td><?php echo $row["nazev"]; ?></td>
-		<td><?php echo $row["vyrobce"]; ?></td>
-		<td><?php echo $row["spravce"]; ?></td>
-		<td><?php echo $row["pocet_kusu"]; ?></td>
-		<td><?php echo $row["cena"]; ?></td>
-		<td> <a href ="employee.php?cmd=remove_costume&id=<?php echo $row["id"];?>" class="btnRemoveAction"><img
+        <td><?php echo $product_id; ?></td>
+        <td><?php echo $name; ?></td>
+		<td><?php echo $firm; ?></td>
+		<td><?php echo $employee_name; ?></td>
+		<td><?php echo $quantity; ?></td>
+		<td><?php echo $price; ?></td>
+		<td> <a href ="employee.php?cmd=remove_costume&id=<?php echo $product_id;?>" class="btnRemoveAction"><img
                             src="images/icons/icon-delete.png" alt="Remove Costume"/></a></td>
 		</tr>
-
-
 		<?php
             }
             echo "</table>";
@@ -139,33 +224,57 @@ if (mysqli_num_rows($result) > 0){
 
 	// ACCESSIORIES TABLE
     echo '<h2> Doplnky </h2>';
- 	$sql = "SELECT * FROM DOPLNEK";
+ 	$sql = "SELECT * FROM DOPLNEK WHERE spravce=$employee_id";
 	$result = mysqli_query($db,$sql) or die(mysqli_error($db));
 
 if (mysqli_num_rows($result) > 0){
  echo '<table class="tbl-cart">
 	 	<tr>
 		<th width="10%"> ID doplnku </th>
-		<th width="12%">  Nazev </th>
-		<th> Vyrobce</th>
-		<th> Spravce </th> 
-		<th width="12%" > Pocet kusu </th> 
+		<th width="15%">  Nazev </th>
+		<th width="30"> Vyrobce</th>
+		<th width="20"> Spravce </th> 
+		<th width="5%" > Pocet kusu </th> 
 		<th width="10%">  Cena </th>
-		<th> Kostym </th>
-		<th width="10%"> Zmazat </th>
+		<th width="5%"> Kostym </th>
+		<th width="5%"> Zmazat </th>
 		</tr>';
-        while($row = mysqli_fetch_array($result)) { ?>
+        while($row = mysqli_fetch_array($result)) {
+            $product_id = $row["id"];
+            $name =  $row["nazev"];
+            $manufacter = $row["vyrobce"];
+            $employee_id = $row['spravce'];
+            $quantity = $row["pocet_kusu"];
+            $price = $row["cena"];
+            $related_costume = $row['kostym'];
+
+            $sql = "SELECT jmeno,prijmeni FROM ZAMESTNANEC WHERE id_zamestnance='$employee_id'";
+            $tmp_result = mysqli_query($db, $sql);
+            $row = mysqli_fetch_array($tmp_result);
+            $employee_name = $row['jmeno'].' '.$row['prijmeni'];
+            if ($employee_name == " "){
+                $employee_name = "Undefined";
+            }
+
+            $sql = "SELECT * FROM VYROBCE WHERE id_vyrobce='$manufacter'";
+            $tmp_result = mysqli_query($db, $sql);
+            $row = mysqli_fetch_array($tmp_result);
+            $firm = $row['nazev_firmy'].'('.$row['stat_firmy'].')';
+            if ($firm == '()'){
+                $firm = "Unknown";
+            }
+            ?>
 
         <tr> 
-        <td><?php echo $row["id"]; ?></td>
-        <td><?php echo $row["nazev"]; ?></td>
-		<td><?php echo $row["vyrobce"]; ?></td>
-		<td><?php echo $row["spravce"]; ?></td>
-		<td><?php echo $row["pocet_kusu"]; ?></td>
-		<td><?php echo $row["cena"]; ?></td>
-		<td><?php echo $row["kostym"]; ?></td>
+        <td><?php echo $product_id; ?></td>
+        <td><?php echo $name; ?></td>
+		<td><?php echo $firm; ?></td>
+		<td><?php echo $employee_name; ?></td>
+		<td><?php echo $quantity; ?></td>
+		<td><?php echo $price; ?></td>
+		<td><?php echo $related_costume; ?></td>
 
-		<td> <a href ="employee.php?cmd=remove_accessiories&id=<?php echo $row["id"];?>" class="btnRemoveAction"><img
+		<td> <a href ="employee.php?cmd=remove_accessiories&id=<?php echo $product_id;?>" class="btnRemoveAction"><img
                             src="images/icons/icon-delete.png" alt="Remove Accessories"/></a></td>
 		</tr>
 		<?php
@@ -180,13 +289,12 @@ if (mysqli_num_rows($result) > 0){
 
         if(isset($_GET['cmd']) && $_GET['cmd'] == "remove_costume"){
         	$remove_id = $_GET['id'];
-        	$sql = "DELETE FROM KOSTYM where id=$remove_id";
-        	if (mysqli_query($db, $sql)){        		
+        	$sql = "DELETE FROM KOSTYM WHERE id='$remove_id'";
+            $result = mysqli_query($db, $sql);
+        	if ($result){
         		header("Location: /employee.php?cmd=success");
-
         	} else {
         		echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
                      Nepodarilo sa odstranit kostym </div>';
         	}
 
@@ -197,15 +305,12 @@ if (mysqli_num_rows($result) > 0){
         	$remove_id = $_GET['id'];
         	$sql = "DELETE FROM DOPLNEK where id=$remove_id";
         	if (mysqli_query($db, $sql)){        		
-        		header("Location: /employee.php");
+        		header("Location: /employee.php?cmd=success");
         	} else {
         		echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
                      Nepodarilo sa odstranit kostym </div>';
         	}
-
         }
-
 
 
 
@@ -214,12 +319,9 @@ if (mysqli_num_rows($result) > 0){
 
 ?>
 
-
-<div class ="grid_10">
-	<div class = "box round first">
 		<h3> Pridat kostym </h3>
-		<div class="block">
-			<form name ="form1" action="" method="post" enctype="multipart/form-data">
+		<div class="add-item">
+			<form name ="form1" action="employee.php" method="post" enctype="multipart/form-data">
 				<table>
 					<tr>
 						<td>Nazev kostymu</td>
@@ -262,20 +364,15 @@ if (mysqli_num_rows($result) > 0){
 						<td><input type="text" name="add_cost_quantity" required> </td>
 					</tr>
 					<tr>
-						<td colspan="2" align="center"><input type ="submit" name= "register_cost" value="Pridat kostym"></td>
+						<td colspan="2" align="center"><input type ="submit" name="add_costume" value="Pridat kostym"></td>
 					</tr>	
 				</table>
 				</form>
 		</div>
-	</div>
 
-</div>
-
-<div class ="grid_10">
-	<div class = "box round first">
 		<h3> Pridat doplnek </h3>
-		<div class="block">
-			<form name ="form2" action="" method="post">
+		<div class="add-item">
+			<form name ="form2" action="employee.php" method="post">
 				<table >
 					<tr>
 						<td>Nazev kostymu</td>
@@ -322,25 +419,13 @@ if (mysqli_num_rows($result) > 0){
 						<td><input type="text" name="add_acces_quantity" required> </td>
 					</tr>
 					<tr>
-						<td colspan="2" align="center"><input type ="submit" name= "register_acces" value="Pridat Doplnek"></td>
+						<td colspan="2" align="center"><input type ="submit" name="add_accessory" value="Pridat Doplnek"></td>
 					</tr>	
 				</table>
 			</form>
 		</div>
-	</div>
 
 
 <?php
 make_footer();
-
-//    elseif ($_SESSION['user'] == "employee") {
-//        //display all proccesed orders by employee
-//        $login = $_SESSION['login'];
-//        $sql = "SELECT * FROM ZAMESTNANEC WHERE login='$login'";
-//
-//        $result = mysqli_query($db, $sql);
-//        $row = mysqli_fetch_array($result);
-//        $employee_id = $row['id_zamestnance'];
-//    }
-
 ?>
