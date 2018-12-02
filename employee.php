@@ -7,9 +7,10 @@ make_header("Zaměstnanec");
 
 
 <?php
-if(isset($_GET['cmd']) && $_GET['cmd'] == "success") {
-    echo '<div class="isa_success">
-                     Polozka uspesne smazana</div>';
+if(isset($_GET['status']) && $_GET['status'] == "success") {
+    echo '<div class="isa_success">Polozka uspesne smazana</div>';
+} elseif (isset($_GET['status']) && $_GET['status'] == "returned"){
+    echo '<div class="isa_success">Zbozi uspesne vraceno</div>';
 }
 $allowed = array('jpg', 'jpeg', 'png', 'gif');
 
@@ -28,7 +29,9 @@ if (mysqli_num_rows($result) > 0){
 		<th width="20%"> Klient(login)</th>  
 		<th width="10%">  Suma </th>
 		<th> Akceptovana </th>
+		<th> Zbozi vraceno </th>
 		<th> Prijmout platbu </th>
+		<th> Potvrdit vraceni </th>
 		</tr>';
     while($row = mysqli_fetch_array($result)) {
         $reservation_id = $row["id_vypujcky"];
@@ -37,7 +40,9 @@ if (mysqli_num_rows($result) > 0){
         $client_id = $row["klient"];
         $total_price = $row["suma"];
         $accepted = $row["accepted"];
+        $returned = $row["returned"];
         $accepted = $accepted == 1 ? "Ano" : "Ne";
+        $returned = $returned == 1 ? "Ano" : "Ne";
 
         $sql = "SELECT * FROM KLIENT WHERE rodne_cislo ='$client_id'";
         $tmp_result = mysqli_query($db, $sql);
@@ -51,12 +56,20 @@ if (mysqli_num_rows($result) > 0){
             <td><?php echo $client; ?></td>
             <td><?php echo $total_price; ?></td>
             <td><?php echo $accepted; ?></td>
+            <td><?php echo $returned; ?></td>
             <?php
                 if ($accepted == "Ano"){
                     echo '<td>-</td>';
                 }else{
                     echo '<td> <a href ="employee.php?cmd=accept&id='.$reservation_id.'" class="btnRemoveAction"><img
                             src="images/icons/icon-accept.png" alt="Accept reservation"/></a></td>';
+                }
+
+                if ($returned == "Ano" || $accepted == "Ne"){
+                    echo '<td>-</td>';
+                }else{
+                    echo '<td><a href ="employee.php?cmd=return&id='.$reservation_id.'" class="btnRemoveAction"><img
+                                src="images/icons/icon-return.png" alt="Return product"/></a></td>';
                 }
             ?>
 
@@ -76,6 +89,46 @@ if (isset($_GET['cmd']) && $_GET['cmd'] == "accept"){
         echo("Error description: " . mysqli_error($db));
     }
     header("location:employee.php");
+}
+
+if (isset($_GET['cmd']) && $_GET['cmd'] == "return"){
+    $reservation_id = $_GET['id'];
+    $sql = "UPDATE VYPUJCKA SET returned=1 WHERE id_vypujcky='$reservation_id'";
+    if (!mysqli_query($db, $sql)){
+        echo("Error description: " . mysqli_error($db));
+    }
+
+    //Returning accessory quantity
+    $sql = "SELECT doplnek,pocet_kusu FROM DODANI_DOPLNKU WHERE vypujcka='$reservation_id'";
+    $result = mysqli_query($db, $sql);
+    if (mysqli_num_rows($result) > 0){
+        while($row = mysqli_fetch_array($result)) {
+            $product_id = $row["doplnek"];
+            $quantity = $row['pocet_kusu'];
+
+            $sql = "UPDATE DOPLNEK SET pocet_kusu=pocet_kusu + '$quantity' WHERE id='$product_id'";
+            if (!mysqli_query($db, $sql)){
+                echo("Error description: " . mysqli_error($db));
+            }
+        }
+    }
+
+    //Returning costume quantity
+    $sql = "SELECT kostym,pocet_kusu FROM DODANI_KOSTYMU WHERE vypujcka='$reservation_id'";
+    $result = mysqli_query($db, $sql);
+    if (mysqli_num_rows($result) > 0){
+        while($row = mysqli_fetch_array($result)) {
+            $product_id = $row["kostym"];
+            $quantity = $row['pocet_kusu'];
+
+            $sql = "UPDATE KOSTYM SET pocet_kusu=pocet_kusu + '$quantity' WHERE id='$product_id'";
+            if (!mysqli_query($db, $sql)){
+                echo("Error description: " . mysqli_error($db));
+            }
+        }
+    }
+
+    header("location:employee.php?status=returned");
 }
 
 
@@ -213,7 +266,7 @@ if (mysqli_num_rows($result) > 0){
         	$sql = "DELETE FROM KOSTYM WHERE id='$remove_id'";
             $result = mysqli_query($db, $sql);
         	if ($result){
-        		header("Location: /employee.php?cmd=success");
+        		header("Location: /employee.php?status=success");
         	} else {
         		echo '<div class="isa_error">
                      Nepodarilo sa odstranit kostym </div>';
@@ -226,7 +279,7 @@ if (mysqli_num_rows($result) > 0){
         	$remove_id = $_GET['id'];
         	$sql = "DELETE FROM DOPLNEK where id=$remove_id";
         	if (mysqli_query($db, $sql)){        		
-        		header("Location: /employee.php?cmd=success");
+        		header("Location: /employee.php?status=success");
         	} else {
         		echo '<div class="isa_error">
                      Nepodarilo sa odstranit kostym </div>';

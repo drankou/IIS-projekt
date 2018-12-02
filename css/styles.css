@@ -274,10 +274,9 @@ h2{
 }
 
 .tbl-cart{
-    width: 70%;
+    width: 90%;
     margin: auto;
     text-align: center;
-
 }
 
 .tbl-cart tr{
@@ -307,7 +306,7 @@ th,td{
 }
 
 .cart-total-price span{
-    margin-right: 250px;
+    margin-right: 150px;
 }
 
 .cart-btn-container{

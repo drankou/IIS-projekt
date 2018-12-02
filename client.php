@@ -22,6 +22,8 @@ if(isset($_SESSION['login'])) {
 		<th> Datum vracení </th>
 		<th> Správce </th> 
 		<th> Suma </th> 
+		<th> Prijata </th>
+		<th> Vracena </th> 
 		</tr>';
             while($row = mysqli_fetch_array($result)) {
                 $reservation_id = $row["id_vypujcky"];
@@ -29,6 +31,10 @@ if(isset($_SESSION['login'])) {
                 $return_date = $row["datum_vraceni"];
                 $employee_id = $row["spravce"];
                 $total_price = $row["suma"];
+                $accepted = $row["accepted"];
+                $returned = $row["returned"];
+                $accepted = $accepted == 1 ? "Ano" : "Ne";
+                $returned = $returned == 1 ? "Ano" : "Ne";
 
                 $sql = "SELECT jmeno,prijmeni FROM ZAMESTNANEC WHERE id_zamestnance = $employee_id";
                 $tmp_result = mysqli_query($db, $sql);
@@ -41,6 +47,8 @@ if(isset($_SESSION['login'])) {
                         <td>". $return_date ."</td>
                         <td>". $employee_name ."</td>
                         <td>". $total_price ."</td>
+                        <td>". $accepted ."</td>
+                        <td>". $returned ."</td>              
                       </tr>";
 
             }
