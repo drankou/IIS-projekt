@@ -31,9 +31,9 @@ if(isset($_SESSION['login'])) {
                 $total_price = $row["suma"];
 
                 $sql = "SELECT jmeno,prijmeni FROM ZAMESTNANEC WHERE id_zamestnance = $employee_id";
-                $result = mysqli_query($db, $sql);
-                $row = mysqli_fetch_array($result);
-                $employee_name = $row['jmeno'].' '.$row['prijmeni'];
+                $tmp_result = mysqli_query($db, $sql);
+                $tmp_row = mysqli_fetch_array($tmp_result);
+                $employee_name = $tmp_row['jmeno'].' '.$tmp_row['prijmeni'];
 
                 echo "<tr>
                         <td>". $reservation_id ."</td>
