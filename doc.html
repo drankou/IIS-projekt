@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavièce dokumentu 
+     podle pou¾itého editoru -->
+
+<h1>Půjčovna kostýmů</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Drankou Aliaksandr <!-- Nahraïte skuteèným jménem a e-mailem autora a popisem èinnosti -->
+	    <a href="mailto:xdrank00@stud.fit.vutbr.cz">xdrank00@stud.fit.vutbr.cz</a> - vizualizace stránky, košík, úprava databáze, výpůjčky, filtry vyhledávání, rozhraní zaměstnance - potvrzení objednávky 
+		
+	</dd>
+	<dd>Roman Čabala <!-- Nahraïte skuteèným jménem a e-mailem autora a popisem èinnosti -->
+	    <a href="mailto:xcabal@stud.fit.vutbr.cz">xcabal06@stud.fit.vutbr.cz</a> - 
+		přihlášení a registrace uživatelů, rozhraní admin - přidání a vymazání zaměstnance, rozhraní zaměstnance - přidání/odstranění kostýmu a doplňku, rozhraní zakazník
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.stud.fit.vutbr.cz/~xdrank00/IIS">http://www.stud.fit.vutbr.cz/~xdrank00/IIS</a></dd>	
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<table>
+<tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
+<tr><td>xnovak</td><td>xnovak</td><td>Zaměstnanec</td></tr>
+<tr><td>honza</td><td>honza</td><td>Zákazník</td></tr>
+</table>
+
+<h2>Implementace</h2>
+<p> Implementován byl Use-case diagram z předmětů IUS a IDS, nebyly provedeny žádné změny. Stejně databáze se shoduje z ER diagram z předmětů IUS a IDS </p>
+<p> Při implementaci nebyly použity žádné frameworky, vše bylo vytvořené pomocí jazyků HTML, CSS a MySQL </p>
+
+<p>Výpis PHP skriptů a jejich popis:</p>
+<ul>
+  <li>admin.php - mazání a přidání zaměstnance</li>
+  <li>cart.php - nákupní košík, odstranění kostýmů z košíku, vynulování celého košíku</li>
+  <li>client.php - seznam výpůjček uživatele</li>
+  <li>common.php - funkce pro vytvoření hlavičky a zápatí, funkce pro filtrování </li>
+  <li>costumes.php - zobrazení dostupných kostýmů</li>
+  <li>db_init.php - inicializace databaze</li>
+  <li>employee.php - seznam všech kostýmů a doplňků, mazání/přidávání kostýmů a doplňků</li>
+  <li>index.php - úvodní stránka</li>
+  <li>login.php - přihlášení a odhlášení do systému</li>
+  <li>product.php - zobrazení kostýmů a doplňku</li>
+  <li>registration.php - registrace nového uživatele</li>
+  <li>reservation.php - rezervacia kostýmů</li> 		   
+</ul>
+
+
+
+<h2>Instalace</h2>
+<ul>
+<li>Pro správné spuštění systému třeba všechny adresáře a soubory uložit na server do cílové složky</li>
+<li>Importujte celou databázi ze souboru db.sql například přes system phpMyAdmin</li>
+<li>Aplikace vyžaduje PHP 5 a MySQL 5</li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p> Z časových důvodů se nám nepodařilo z Use-case diagramu implementovat nastavení pokuty po uplynutí doby výpůjčky</p>
+
+</body>
+</html>
