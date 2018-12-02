@@ -13,85 +13,6 @@ if(isset($_GET['cmd']) && $_GET['cmd'] == "success") {
 }
 $allowed = array('jpg', 'jpeg', 'png', 'gif');
 
-
-// INSERT costume not working
-if (isset($_POST['add_costume'])) {
-    $name = ($_POST['add_cost_name']);
-    $color = ($_POST['add_cost_color']);    
-    $material = ($_POST['add_cost_material']);
-    $size = ($_POST['add_cost_size']);
-    $price = ($_POST['add_cost_price']);
-    $date = ($_POST['add_cost_date']);
-    $employee = ($_POST['add_cost_manager']);
-    $maker = ($_POST['add_cost_maker']);
-   // $img= ($_POST['add_cost_img']);
-    $quantity = ($_POST['add_cost_quantity']);
-   
-    $fileName =$_FILES['file']['name'];
-    $fileTmpName = $_FILES['file']['name'];
-    $fileError =$_FILES['file']['error'];
-    $fileSize =$_FILES['file']['size'];
-
-    $fileExt = explode('.', $fileName);
-    $filesActualExt = strtolower(end($fileExt));    
-
-    if(in_array($filesActualExt, $allowed)){
-    	if($fileError === 0){
-    		if($fileSize < 1000000){
-    			$fileNameNew = uniqid('',true).".".$filesActualExt;
-    			
-    			echo $fileTmpName;  
-    			echo "\n";			
-
-    			$fileDestination = 'images/costumes/'.$fileNameNew;
-    			echo $fileDestination;
-    			move_uploaded_file($fileTmpName, $fileDestination);
-    			echo '<div class="isa_success">
-                 	Uspesny upload obrazka </div>';
-    		} else{
-    			echo '<div class="isa_error">
-                     Prilis velkej soubor </div>';
-    		}
-    	}
-
-    } else {
-    	echo '<div class="isa_error">
-                 Nepodporovany typ souboru </div>';
-    }
-    $sql = "INSERT INTO KOSTYM(nazev, barva, velikost, material, cena, datum_vyroby, spravce, vyrobce, filepath, pocet_kusu) VALUES('$name', '$color', '$material', '$price', '$date', '$employee', '$maker', '$fileDestination', '$quantity')";
-
-     if (mysqli_query($db, $sql)) {
-     	 echo '<div class="isa_success">
-                     Kostym byl uspesne pridan </div>';
-     }
-     else{
-     	 echo '<div class="isa_error">
-                     Nepodarilo se pridat kostym skuste to znova </div>';
-     }
-}
-
-// INSERT accessories not working
-if (isset($_POST['add_accessory'])) {
-    $name = ($_POST['add_acces_name']);
-    $color = ($_POST['add_acces_color']);    
-    $material = ($_POST['add_acces_material']);
-    $size = ($_POST['add_acces_size']);
-    $price = ($_POST['add_acces_price']);
-    $date = ($_POST['add_acces_date']);
-    $employee = ($_POST['add_acces_manager']);
-    $maker = ($_POST['add_acces_make']);
-    $img= ($_POST['add_acces_img']);
-    $quantity = ($_POST['add_acces_quantity']);
-
-    $fileName =$_FILES['file']['name'];
-    $fileTmpName = $_FILES['file']['name'];
-    $fileError =$_FILES['file']['error'];
-    $fileSize =$_FILES['file']['size'];
-
-    $fileExt = explode('.', $fileName);
-    $filesActualExt = strtolower(end($fileExt));
-}
-
 // COSTUMES TABLE
 echo '<h2> Vypujcky </h2>';
 $employee_id = $_SESSION['user_id'];
@@ -313,117 +234,210 @@ if (mysqli_num_rows($result) > 0){
         }
 
 
+// INSERT costume working, file is uploaded to server using http post
+if (isset($_POST['add_costume'])) {
+    $name = ($_POST['add_cost_name']);
+    $color = ($_POST['add_cost_color']);
+    $material = ($_POST['add_cost_material']);
+    $size = ($_POST['add_cost_size']);
+    $price = ($_POST['add_cost_price']);
+    $date = ($_POST['add_cost_date']);
+    $employee = ($_POST['add_cost_manager']);
+    $maker = ($_POST['add_cost_maker']);
+    $quantity = ($_POST['add_cost_quantity']);
+
+    $fileName =$_FILES['file']['name'];
+    $fileError =$_FILES['file']['error'];
+    $fileSize =$_FILES['file']['size'];
+
+    $fileExt = strtolower(end(explode('.', $fileName)));
+
+    if(in_array($fileExt, $allowed)){
+        if($fileError === 0){
+            if($fileSize < 1000000){
+                $fileNameNew = uniqid('',true).".".$fileExt;
+                $target_dir = "images/costumes/";
+                $target_file = $target_dir . basename($fileNameNew);
+
+                if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                    echo '<div class="isa_success">The file '. basename($_FILES["file"]["name"]) . 'has been uploaded.</div>';
+                }
+            } else{
+                echo '<div class="isa_error">Prilis velkej soubor </div>';
+            }
+        }
+    } else {
+        echo '<div class="isa_error">Nepodporovany typ souboru </div>';
+    }
+    $sql = "INSERT INTO KOSTYM(nazev, barva, velikost, material, cena, datum_vyroby, spravce, vyrobce, filepath, pocet_kusu) VALUES('$name', '$color', '$size', '$material', '$price', '$date', '$employee', '$maker', '$target_file', '$quantity')";
+
+    if (mysqli_query($db, $sql)) {
+        echo '<div class="isa_success">Kostym byl uspesne pridan </div>';
+    }
+    else{
+        echo '<div class="isa_error">Nepodarilo se pridat kostym skuste to znova </div>';
+    }
+}
+
+
+// INSERT accessories not working
+if (isset($_POST['add_accessory'])) {
+    $name = $_POST['add_acces_name'];
+    $color = $_POST['add_acces_color'];
+    $material = $_POST['add_acces_material'];
+    $size = $_POST['add_acces_size'];
+    $price = $_POST['add_acces_price'];
+    $date = $_POST['add_acces_date'];
+    $employee = $_POST['add_acces_manager'];
+    $maker = $_POST['add_acces_make'];
+    $quantity = $_POST['add_acces_quantity'];
+    $related_costume = $_POST['add_acces_costum'];
+
+    $fileName =$_FILES['file']['name'];
+    $fileError =$_FILES['file']['error'];
+    $fileSize =$_FILES['file']['size'];
+
+    $fileExt = strtolower(end(explode('.', $fileName)));
+
+    if(in_array($fileExt, $allowed)){
+        if($fileError === 0){
+            if($fileSize < 1000000){
+                $fileNameNew = uniqid('',true).".".$fileExt;
+                $target_dir = "images/accessories/";
+                $target_file = $target_dir . basename($fileNameNew);
+
+                if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                    echo '<div class="isa_success">The file '. basename($_FILES["file"]["name"]) . 'has been uploaded.</div>';
+                }
+            } else{
+                echo '<div class="isa_error">Prilis velkej soubor </div>';
+            }
+        }
+    } else {
+        echo '<div class="isa_error">Nepodporovany typ souboru </div>';
+    }
+
+    $sql = "INSERT INTO DOPLNEK(nazev, barva, material, cena, datum_vyroby, spravce, vyrobce, filepath, pocet_kusu, kostym) VALUES('$name', '$color', '$material', '$price', '$date', '$employee', '$maker', '$target_file', '$quantity', $related_costume)";
+
+    if (mysqli_query($db, $sql)) {
+        echo '<div class="isa_success">Kostym byl uspesne pridan </div>';
+    }
+    else{
+        echo '<div class="isa_error">Nepodarilo se pridat kostym skuste to znova </div>';
+    }
+}
 
 
 
 
 ?>
+<div class="add-product-container">
+    <div class="add-item">
+        <h3> Pridat kostym </h3>
+        <form name ="form1" action="employee.php" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <td>Nazev kostymu</td>
+                    <td><input type="text" name="add_cost_name" required> </td>
+                </tr>
+                <tr>
+                    <td>Barva</td>
+                    <td><input type="text" name="add_cost_color" required> </td>
+                </tr>
+                <tr>
+                    <td>Velikost</td>
+                    <td><input type="text" name="add_cost_size" required> </td>
+                </tr>
+                <tr>
+                    <td>Material</td>
+                    <td><input type="text" name="add_cost_material" required> </td>
+                </tr>
+                <tr>
+                    <td>Cena</td>
+                    <td><input type="text" name="add_cost_price" required> </td>
+                </tr>
+                <tr>
+                    <td>Datum vyroby</td>
+                    <td><input type="date" name="add_cost_date" required> </td>
+                </tr>
+                <tr>
+                    <td>Spravce</td>
+                    <td><input type="text" name="add_cost_manager" required> </td>
+                </tr>
+                <tr>
+                    <td>Vyrobce</td>
+                    <td><input type="text" name="add_cost_maker" required> </td>
+                </tr>
+                <tr>
+                    <td>Obrazok</td>
+                    <td><input type="file" name="file" id="add_cost_img" required> </td>
+                </tr>
+                <tr>
+                    <td>Pocet kusov</td>
+                    <td><input type="text" name="add_cost_quantity" required> </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input type ="submit" name="add_costume" value="Pridat kostym"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="add-item">
+        <h3> Pridat doplnek </h3>
+        <form name ="form2" action="employee.php" method="post">
+            <table >
+                <tr>
+                    <td>Nazev kostymu</td>
+                    <td><input type="text" name="add_acces_name" required> </td>
+                </tr>
+                <tr>
+                    <td>Barva</td>
+                    <td><input type="text" name="add_acces_color" required> </td>
+                </tr>
+                <tr>
+                    <td>Velikost</td>
+                    <td><input type="text" name="add_acces_size" required> </td>
+                </tr>
+                <tr>
+                    <td>Material</td>
+                    <td><input type="text" name="add_acces_material" required> </td>
+                </tr>
+                <tr>
+                    <td>Cena</td>
+                    <td><input type="text" name="add_acces_price" required> </td>
+                </tr>
+                <tr>
+                    <td>Datum vyroby</td>
+                    <td><input type="date" name="add_acces_date" required> </td>
+                </tr>
+                <tr>
+                    <td>Spravce</td>
+                    <td><input type="text" name="add_acces_manager" required> </td>
+                </tr>
+                <tr>
+                    <td>Vyrobce</td>
+                    <td><input type="text" name="add_acces_maker" required> </td>
+                </tr>
+                <tr>
+                    <td>Priradenie ku kostymu</td>
+                    <td><input type="text" name="add_acces_costum" required> </td>
+                </tr>
+                <tr>
+                    <td>Obrazok</td>
+                    <td><input type="file" name="add_acces_img" required> </td>
+                </tr>
+                <tr>
+                    <td>Pocet kusov</td>
+                    <td><input type="text" name="add_acces_quantity" required> </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input type ="submit" name="add_accessory" value="Pridat Doplnek"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
 
-		<h3> Pridat kostym </h3>
-		<div class="add-item">
-			<form name ="form1" action="employee.php" method="post" enctype="multipart/form-data">
-				<table>
-					<tr>
-						<td>Nazev kostymu</td>
-						<td><input type="text" name="add_cost_name" required> </td>
-					</tr>
-					<tr>
-						<td>Barva</td>						
-						<td><input type="text" name="add_cost_color" required> </td>
-					</tr>
-					<tr>
-						<td>Velikost</td>						
-						<td><input type="text" name="add_cost_size" required> </td>
-					</tr>
-					<tr>
-						<td>Material</td>						
-						<td><input type="text" name="add_cost_material" required> </td>
-					</tr>
-					<tr>
-						<td>Cena</td>						
-						<td><input type="text" name="add_cost_price" required> </td>
-					</tr>
-					<tr>
-						<td>Datum vyroby</td>						
-						<td><input type="date" name="add_cost_date" required> </td>
-					</tr>
-					<tr>
-						<td>Spravce</td>						
-						<td><input type="text" name="add_cost_manager" required> </td>
-					</tr>	
-					<tr>
-						<td>Vyrobce</td>						
-						<td><input type="text" name="add_cost_maker" required> </td>
-					</tr>
-					<tr>
-						<td>Obrazok</td>						
-						<td><input type="file" name="file" id="add_cost_img" required> </td>
-					</tr>	
-					<tr>
-						<td>Pocet kusov</td>						
-						<td><input type="text" name="add_cost_quantity" required> </td>
-					</tr>
-					<tr>
-						<td colspan="2" align="center"><input type ="submit" name="add_costume" value="Pridat kostym"></td>
-					</tr>	
-				</table>
-				</form>
-		</div>
-
-		<h3> Pridat doplnek </h3>
-		<div class="add-item">
-			<form name ="form2" action="employee.php" method="post">
-				<table >
-					<tr>
-						<td>Nazev kostymu</td>
-						<td><input type="text" name="add_acces_name" required> </td>
-					</tr>
-					<tr>
-						<td>Barva</td>						
-						<td><input type="text" name="add_acces_color" required> </td>
-					</tr>
-					<tr>
-						<td>Velikost</td>						
-						<td><input type="text" name="add_acces_size" required> </td>
-					</tr>
-					<tr>
-						<td>Material</td>						
-						<td><input type="text" name="add_acces_material" required> </td>
-					</tr>
-					<tr>
-						<td>Cena</td>						
-						<td><input type="text" name="add_acces_price" required> </td>
-					</tr>
-					<tr>
-						<td>Datum vyroby</td>						
-						<td><input type="date" name="add_acces_date" required> </td>
-					</tr>
-					<tr>
-						<td>Spravce</td>						
-						<td><input type="text" name="add_acces_manager" required> </td>
-					</tr>	
-					<tr>
-						<td>Vyrobce</td>						
-						<td><input type="text" name="add_acces_maker" required> </td>
-					</tr>
-					<tr>
-						<td>Priradenie ku kostymu</td>						
-						<td><input type="text" name="add_acces_costum" required> </td>
-					</tr>
-					<tr>
-						<td>Obrazok</td>						
-						<td><input type="file" name="add_acces_img" required> </td>
-					</tr>	
-					<tr>
-						<td>Pocet kusov</td>						
-						<td><input type="text" name="add_acces_quantity" required> </td>
-					</tr>
-					<tr>
-						<td colspan="2" align="center"><input type ="submit" name="add_accessory" value="Pridat Doplnek"></td>
-					</tr>	
-				</table>
-			</form>
-		</div>
 
 
 <?php

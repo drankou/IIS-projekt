@@ -357,3 +357,13 @@ background-color: #FFD2D2;
 .add-employee{
     margin: 50px;
 }
+
+.add-item{
+    float: left;
+    width: 50%;
+}
+
+.add-product-container{
+    height: 700px;
+    padding: 20px;
+}
