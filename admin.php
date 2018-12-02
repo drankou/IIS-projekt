@@ -22,12 +22,12 @@ if (mysqli_num_rows($result) > 0){
  echo '<table class="tbl-cart">
 	 	<tr>
 		<th width="10%"> ID zamestnance </th>
-		<th width="12%">  Jmeno </th>
-		<th> Prijmeni</th>
+		<th width="12%">  Jméno </th>
+		<th> Příjmení</th>
 		<th> Login </th>
-		<th> pozice </th> 
-		<th width="12%" > telefon </th> 
-		<th width="10%">  vyhodit </th>
+		<th> Pozice </th> 
+		<th width="12%" > Telefon </th> 
+		<th width="10%">  Vyhodit </th>
 		</tr>';
         while($row = mysqli_fetch_array($result)) { ?>
 
@@ -48,7 +48,7 @@ if (mysqli_num_rows($result) > 0){
             echo "</table>";
         }
         else {
-        	echo '<p> Nejsou zadne zamestnanci</p>';
+        	echo '<p> Nejsou žádný zaměstnanci</p>';
         }
 
 		// remove employee
@@ -57,8 +57,7 @@ if (mysqli_num_rows($result) > 0){
         	$sql = "DELETE FROM ZAMESTNANEC where id_zamestnance=$remove_id";
         	if (mysqli_query($db, $sql)){
         	    header("Location: /admin.php?removed=true");
-        	} else {
-                echo("Error description: " . mysqli_error($db));
+        	} else {               
         		echo '<div class="isa_error">
                      Nepodarilo se odstranit zamestnance </div>';
         	}
@@ -100,11 +99,11 @@ if (mysqli_num_rows($result) > 0){
 			<form name ="form1" action="" method="post">
 				<table>
 					<tr>
-						<td>Jmeno*</td>
+						<td>Jméno*</td>
 						<td><input type="text" name="add_name" required> </td>
 					</tr>
 					<tr>
-						<td>Prijmeni*</td>						
+						<td>Příjmení*</td>						
 						<td><input type="text" name="add_surname" required> </td>
 					</tr>
 					<tr>

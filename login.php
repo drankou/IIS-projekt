@@ -44,7 +44,7 @@ make_header("Přihlašení");
 	   		session_destroy();
 	   		unset($_SESSION['login']);
 	   		header('location:index.php');
-	   		echo "<p>Úspěšně jste se odhlasil.</p>";
+	   		echo "<p>Úspěšně jste se odhlásili.</p>";
 	   	}
     ?>
 

@@ -20,7 +20,7 @@ if (isset($_POST['reserve-btn'])){
     if (!mysqli_query($db, $sql)){
         echo("Error description: " . mysqli_error($db));
         echo '<div class="isa_error">
-                <p>Omlouvame se, nastala interni chyba. Zkuste znovu pozdeji</p>
+                <p>Omlouváme se, nastala interní chyba. Zkuste znovu pozdějí</p>
               </div>';
     }
     $order_id = mysqli_insert_id($db);  //get primary_key of last inserted row
@@ -32,21 +32,25 @@ if (isset($_POST['reserve-btn'])){
         if ($product_type == "costumes"){
             $sql = "INSERT INTO DODANI_KOSTYMU(vypujcka, kostym, pocet_kusu) VALUES ('$order_id', '$product_id', '$quantity')";
             if (!mysqli_query($db, $sql)){
-                echo("Error description: " . mysqli_error($db));
+                echo '<div class="isa_error">
+                     Chyba </div>';
             }
 
             $sql = "UPDATE KOSTYM SET pocet_kusu=pocet_kusu -'$quantity' WHERE id='$product_id'";
             if (!mysqli_query($db, $sql)){
-                echo("Error description: " . mysqli_error($db));
+                echo '<div class="isa_error">
+                     Chyba </div>';
             }
         }else if ($product_type == "accessories"){
             $sql = "INSERT INTO DODANI_DOPLNKU(vypujcka, doplnek, pocet_kusu) VALUES ('$order_id', '$product_id', '$quantity')";
             if (!mysqli_query($db, $sql)){
-                echo("Error description: " . mysqli_error($db));
+                echo '<div class="isa_error">
+                     Chyba </div>';;
             }
             $sql = "UPDATE DOPLNEK SET pocet_kusu=pocet_kusu -'$quantity' WHERE id='$product_id'";
             if (!mysqli_query($db, $sql)){
-                echo("Error description: " . mysqli_error($db));
+                echo '<div class="isa_error">
+                     Chyba </div>';
             }
         }
     }
@@ -55,11 +59,11 @@ if (isset($_POST['reserve-btn'])){
 }
 
 echo '<div class="isa_success">
-        Objednavka probehla uspesne
+        Objednávka proběhla úspěšně
       </div>';
 
 echo '<div>
-    <a href="client.php"><button>Prohlednout seznam rezervaci</button></a>
+    <a href="client.php"><button>Prohlédnout seznam rezervaci</button></a>
 </div>';
 ?>
 

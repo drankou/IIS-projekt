@@ -33,15 +33,15 @@ function make_header($title)
                         <?php
                             if(isset($_SESSION['login']) ) {
                                 if ($_SESSION['user'] == "client"){
-                                echo '  <a href="client.php"><button>Muj Ucet</button></a>
+                                echo '  <a href="client.php"><button>Můj Účet</button></a>
                                         <form action="login.php" method="post">
                                             <input type="submit" name="logout_btn" value="Odhlasit se">';
                                 } else if ($_SESSION['user'] =="admin"){
-                                    echo '  <a href="admin.php"><button>Muj Ucet</button></a>
+                                    echo '  <a href="admin.php"><button>Můj Účet</button></a>
                                         <form action="login.php" method="post">
                                             <input type="submit" name="logout_btn" value="Odhlasit se">';
                                 }  else if ($_SESSION['user'] == "employee"){
-                                    echo '  <a href="employee.php"><button>Muj Ucet</button></a>
+                                    echo '  <a href="employee.php"><button>Můj Účet</button></a>
                                         <form action="login.php" method="post">
                                             <input type="submit" name="logout_btn" value="Odhlasit se">';
                                 }                  
@@ -147,8 +147,8 @@ function filterContainer($min_price, $max_price, $page){
             do <input name="max-price" type="text" value="',$max_price,'">
         </div>
         <div class="ordering-controls">
-            <a href="'.$page.'?mode=ascending">od nejlevnejsiho</a>
-            <a href="'.$page.'?mode=descending">od nejdrazsiho</a>            
+            <a href="'.$page.'?mode=ascending">od nejlevnějšího</a>
+            <a href="'.$page.'?mode=descending">od nejdražšího</a>            
         </div>
         <input type="submit" name="search_btn" value="Hledat">
     </form>

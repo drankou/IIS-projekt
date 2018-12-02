@@ -48,9 +48,9 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
     echo '<table class="tbl-cart">
             <tbody>
             <tr>
-                <th>Nazev</th>
+                <th>Název</th>
                 <th width="20%">ID produktu</th>
-                <th width="20%">Pocet kusu</th>
+                <th width="20%">Počet kusu</th>
                 <th width="15%">Cena</th>
                 <th width="5%">Smazat</th>       
             </tr>';
@@ -80,14 +80,14 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
         </table>
 <!--        echo 'Total price: ' . $total_price . '<br/>';-->
         <div class="cart-total-price">
-            <span>Celková suma: <?php echo $total_price;?></span>
+            <span>Celková suma: <?php echo $total_price;?> kč</span>
         </div>
     <?php if(isset($_SESSION['login'])) { ?>
         <div class="cart-date-range">
             <form method="post" action="reservation.php">
-                <label for="rent_date">Datum pujceni</label>
+                <label for="rent_date">Datum půjčení</label>
                 <input type="date" name="rent_date" id="rent_date" value="<?php echo date("Y-m-d"); ?>"><br>
-                <label for="return_date">Datum vraceni</label>
+                <label for="return_date">Datum vrácení</label>
                 <input type="date" name="return_date" id="return_date" value="<?php echo date("Y-m-d"); ?>"><br>
                 <input type="number" name="total_price" value="<?php echo $total_price ?>" hidden>
 

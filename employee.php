@@ -23,15 +23,15 @@ $result = mysqli_query($db,$sql) or die(mysqli_error($db));
 if (mysqli_num_rows($result) > 0){
     echo '<table class="tbl-cart">
 	 	<tr>
-		<th width="10%"> ID vypujcky </th>
-		<th width="30%">  Datum pujceni </th>
-		<th width="30%"> Datum vraceni</th>
+		<th width="10%"> ID výpůjčky </th>
+		<th width="30%">  Datum půjčení </th>
+		<th width="30%"> Datum vrácení</th>
 		<th width="20%"> Klient(login)</th>  
 		<th width="10%">  Suma </th>
-		<th> Akceptovana </th>
-		<th> Zbozi vraceno </th>
-		<th> Prijmout platbu </th>
-		<th> Potvrdit vraceni </th>
+		<th> Akceptována </th>
+		<th> Zboží vráceno </th>
+		<th> Přijmout platbu </th>
+		<th> Potvrdit vrácení</th>
 		</tr>';
     while($row = mysqli_fetch_array($result)) {
         $reservation_id = $row["id_vypujcky"];
@@ -79,14 +79,15 @@ if (mysqli_num_rows($result) > 0){
     echo "</table>";
 }
 else {
-    echo '<p> Nejsou zadne vypujcky</p>';
+    echo '<p> Nejsou žádné výpůjčky</p>';
 }
 
 if (isset($_GET['cmd']) && $_GET['cmd'] == "accept"){
     $reservation_id = $_GET['id'];
     $sql = "UPDATE VYPUJCKA SET accepted=1 WHERE id_vypujcky='$reservation_id'";
     if (!mysqli_query($db, $sql)){
-        echo("Error description: " . mysqli_error($db));
+        echo '<div class="isa_error">
+                     Chyba </div>';
     }
     header("location:employee.php");
 }
@@ -95,7 +96,8 @@ if (isset($_GET['cmd']) && $_GET['cmd'] == "return"){
     $reservation_id = $_GET['id'];
     $sql = "UPDATE VYPUJCKA SET returned=1 WHERE id_vypujcky='$reservation_id'";
     if (!mysqli_query($db, $sql)){
-        echo("Error description: " . mysqli_error($db));
+        echo '<div class="isa_error">
+                     Chyba </div>';
     }
 
     //Returning accessory quantity
@@ -108,7 +110,8 @@ if (isset($_GET['cmd']) && $_GET['cmd'] == "return"){
 
             $sql = "UPDATE DOPLNEK SET pocet_kusu=pocet_kusu + '$quantity' WHERE id='$product_id'";
             if (!mysqli_query($db, $sql)){
-                echo("Error description: " . mysqli_error($db));
+                echo '<div class="isa_error">
+                     Chyba </div>';
             }
         }
     }
@@ -123,7 +126,8 @@ if (isset($_GET['cmd']) && $_GET['cmd'] == "return"){
 
             $sql = "UPDATE KOSTYM SET pocet_kusu=pocet_kusu + '$quantity' WHERE id='$product_id'";
             if (!mysqli_query($db, $sql)){
-                echo("Error description: " . mysqli_error($db));
+                echo '<div class="isa_error">
+                     Chyba </div>';
             }
         }
     }
@@ -133,7 +137,7 @@ if (isset($_GET['cmd']) && $_GET['cmd'] == "return"){
 
 
 	// COSTUMES TABLE
-    echo '<h2> Kostymy </h2>';
+    echo '<h2> Kostýmy </h2>';
     $employee_id = $_SESSION['user_id'];
  	$sql = "SELECT * FROM KOSTYM WHERE spravce = $employee_id";
  	$result = mysqli_query($db,$sql) or die(mysqli_error($db));
@@ -141,13 +145,13 @@ if (isset($_GET['cmd']) && $_GET['cmd'] == "return"){
 if (mysqli_num_rows($result) > 0){
  echo '<table class="tbl-cart">
 	 	<tr>
-		<th width="10%"> ID kostymu </th>
-		<th width="15%">  Nazev </th>
-		<th width="30%"> Vyrobce</th>
-		<th width="20%"> Spravce </th> 
-		<th width="5%" > Pocet kusu </th> 
+		<th width="10%"> ID kostýmu </th>
+		<th width="15%">  Název </th>
+		<th width="30%"> Výrobce</th>
+		<th width="20%"> Správce </th> 
+		<th width="5%" > Počet kusu </th> 
 		<th width="10%">  Cena </th>
-		<th width="5%"> Zmazat </th>
+		<th width="5%"> Smazat </th>
 		</tr>';
         while($row = mysqli_fetch_array($result)) {
             $product_id = $row["id"];
@@ -168,7 +172,8 @@ if (mysqli_num_rows($result) > 0){
             $sql = "SELECT * FROM VYROBCE WHERE id_vyrobce='$manufacter'";
             $tmp_result = mysqli_query($db, $sql);
             if (!$tmp_result){
-                echo("Error description: " . mysqli_error($db));
+                echo '<div class="isa_error">
+                     Chyba </div>';
             }
             $row = mysqli_fetch_array($tmp_result);
             $firm = $row['nazev_firmy'].'('.$row['stat_firmy'].')';
@@ -192,26 +197,26 @@ if (mysqli_num_rows($result) > 0){
             echo "</table>";
         }
         else {
-        	echo '<p> Nejsou zadne kostymy</p>';
+        	echo '<p> Nejsou žádné kostýmy</p>';
         }
 
 
 	// ACCESSIORIES TABLE
-    echo '<h2> Doplnky </h2>';
+    echo '<h2> Doplňky </h2>';
  	$sql = "SELECT * FROM DOPLNEK WHERE spravce=$employee_id";
 	$result = mysqli_query($db,$sql) or die(mysqli_error($db));
 
 if (mysqli_num_rows($result) > 0){
  echo '<table class="tbl-cart">
 	 	<tr>
-		<th width="10%"> ID doplnku </th>
-		<th width="15%">  Nazev </th>
-		<th width="30"> Vyrobce</th>
-		<th width="20"> Spravce </th> 
-		<th width="5%" > Pocet kusu </th> 
+		<th width="10%"> ID doplňku </th>
+		<th width="15%">  Název </th>
+		<th width="30"> Výrobce</th>
+		<th width="20"> Správce </th> 
+		<th width="5%" > Počet kusu </th> 
 		<th width="10%">  Cena </th>
-		<th width="5%"> Kostym </th>
-		<th width="5%"> Zmazat </th>
+		<th width="5%"> Kostým </th>
+		<th width="5%"> Smazat </th>
 		</tr>';
         while($row = mysqli_fetch_array($result)) {
             $product_id = $row["id"];
@@ -256,7 +261,7 @@ if (mysqli_num_rows($result) > 0){
             echo "</table>";
         }
         else {
-        	echo '<p> Nejsou zadne doplnky</p>';
+        	echo '<p> Nejsou žádné doplňky</p>';
         }
 
         // DELETE COSTUME
@@ -269,7 +274,7 @@ if (mysqli_num_rows($result) > 0){
         		header("Location: /employee.php?status=success");
         	} else {
         		echo '<div class="isa_error">
-                     Nepodarilo sa odstranit kostym </div>';
+                     Nepodarilo sa odstranit kostým </div>';
         	}
 
         }
@@ -282,7 +287,7 @@ if (mysqli_num_rows($result) > 0){
         		header("Location: /employee.php?status=success");
         	} else {
         		echo '<div class="isa_error">
-                     Nepodarilo sa odstranit kostym </div>';
+                     Nepodarilo sa odstranit doplňek </div>';
         	}
         }
 
@@ -316,19 +321,19 @@ if (isset($_POST['add_costume'])) {
                     echo '<div class="isa_success">The file '. basename($_FILES["file"]["name"]) . 'has been uploaded.</div>';
                 }
             } else{
-                echo '<div class="isa_error">Prilis velkej soubor </div>';
+                echo '<div class="isa_error">Příliš velkej soubor </div>';
             }
         }
     } else {
-        echo '<div class="isa_error">Nepodporovany typ souboru </div>';
+        echo '<div class="isa_error">Nepodporovaný typ souboru </div>';
     }
     $sql = "INSERT INTO KOSTYM(nazev, barva, velikost, material, cena, datum_vyroby, spravce, vyrobce, filepath, pocet_kusu) VALUES('$name', '$color', '$size', '$material', '$price', '$date', '$employee', '$maker', '$target_file', '$quantity')";
 
     if (mysqli_query($db, $sql)) {
-        echo '<div class="isa_success">Kostym byl uspesne pridan </div>';
+        echo '<div class="isa_success">Kostym byl úspěšně přidán </div>';
     }
     else{
-        echo '<div class="isa_error">Nepodarilo se pridat kostym skuste to znova </div>';
+        echo '<div class="isa_error">Nepodařilo se pridat kostým, skuste to znovu </div>';
     }
 }
 
@@ -363,20 +368,20 @@ if (isset($_POST['add_accessory'])) {
                     echo '<div class="isa_success">The file '. basename($_FILES["file"]["name"]) . 'has been uploaded.</div>';
                 }
             } else{
-                echo '<div class="isa_error">Prilis velkej soubor </div>';
+                echo '<div class="isa_error">Příliš velkej soubor </div>';
             }
         }
     } else {
-        echo '<div class="isa_error">Nepodporovany typ souboru </div>';
+        echo '<div class="isa_error">Nepodporovaný typ souboru </div>';
     }
 
     $sql = "INSERT INTO DOPLNEK(nazev, barva, material, cena, datum_vyroby, spravce, vyrobce, filepath, pocet_kusu, kostym) VALUES('$name', '$color', '$material', '$price', '$date', '$employee', '$maker', '$target_file', '$quantity', $related_costume)";
 
     if (mysqli_query($db, $sql)) {
-        echo '<div class="isa_success">Kostym byl uspesne pridan </div>';
+        echo '<div class="isa_success">Doplněk byl úspěšně přidán </div>';
     }
     else{
-        echo '<div class="isa_error">Nepodarilo se pridat kostym skuste to znova </div>';
+        echo '<div class="isa_error">Nepodařilo se pridat doplněk, skuste to znovu </div>';
     }
 }
 
@@ -386,11 +391,11 @@ if (isset($_POST['add_accessory'])) {
 ?>
 <div class="add-product-container">
     <div class="add-item">
-        <h3> Pridat kostym </h3>
+        <h3> Přidat kostým </h3>
         <form name ="form1" action="employee.php" method="post" enctype="multipart/form-data">
             <table>
                 <tr>
-                    <td>Nazev kostymu</td>
+                    <td>Název kostymu</td>
                     <td><input type="text" name="add_cost_name" required> </td>
                 </tr>
                 <tr>
@@ -410,23 +415,23 @@ if (isset($_POST['add_accessory'])) {
                     <td><input type="text" name="add_cost_price" required> </td>
                 </tr>
                 <tr>
-                    <td>Datum vyroby</td>
+                    <td>Datum výroby</td>
                     <td><input type="date" name="add_cost_date" required> </td>
                 </tr>
                 <tr>
-                    <td>Spravce</td>
+                    <td>Správce</td>
                     <td><input type="text" name="add_cost_manager" required> </td>
                 </tr>
                 <tr>
-                    <td>Vyrobce</td>
+                    <td>Výrobce</td>
                     <td><input type="text" name="add_cost_maker" required> </td>
                 </tr>
                 <tr>
-                    <td>Obrazok</td>
+                    <td>Obrázek</td>
                     <td><input type="file" name="file" id="add_cost_img" required> </td>
                 </tr>
                 <tr>
-                    <td>Pocet kusov</td>
+                    <td>Počet kusu</td>
                     <td><input type="text" name="add_cost_quantity" required> </td>
                 </tr>
                 <tr>
@@ -436,11 +441,11 @@ if (isset($_POST['add_accessory'])) {
         </form>
     </div>
     <div class="add-item">
-        <h3> Pridat doplnek </h3>
+        <h3> Pridat doplněk </h3>
         <form name ="form2" action="employee.php" method="post">
             <table >
                 <tr>
-                    <td>Nazev kostymu</td>
+                    <td>Název doplňku</td>
                     <td><input type="text" name="add_acces_name" required> </td>
                 </tr>
                 <tr>
@@ -460,31 +465,31 @@ if (isset($_POST['add_accessory'])) {
                     <td><input type="text" name="add_acces_price" required> </td>
                 </tr>
                 <tr>
-                    <td>Datum vyroby</td>
+                    <td>Datum výroby</td>
                     <td><input type="date" name="add_acces_date" required> </td>
                 </tr>
                 <tr>
-                    <td>Spravce</td>
+                    <td>Správce</td>
                     <td><input type="text" name="add_acces_manager" required> </td>
                 </tr>
                 <tr>
-                    <td>Vyrobce</td>
+                    <td>Výrobce</td>
                     <td><input type="text" name="add_acces_maker" required> </td>
                 </tr>
                 <tr>
-                    <td>Priradenie ku kostymu</td>
+                    <td>Přiřazení ke kostýmu</td>
                     <td><input type="text" name="add_acces_costum" required> </td>
                 </tr>
                 <tr>
-                    <td>Obrazok</td>
+                    <td>Obrázek</td>
                     <td><input type="file" name="add_acces_img" required> </td>
                 </tr>
                 <tr>
-                    <td>Pocet kusov</td>
+                    <td>Počet kusu</td>
                     <td><input type="text" name="add_acces_quantity" required> </td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><input type ="submit" name="add_accessory" value="Pridat Doplnek"></td>
+                    <td colspan="2" align="center"><input type ="submit" name="add_accessory" value="Pridat Doplněk"></td>
                 </tr>
             </table>
         </form>

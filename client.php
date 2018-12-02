@@ -22,7 +22,7 @@ if(isset($_SESSION['login'])) {
 		<th> Datum vracení </th>
 		<th> Správce </th> 
 		<th> Suma </th> 
-		<th> Prijata </th>
+		<th> Přijata </th>
 		<th> Vracena </th> 
 		</tr>';
             while($row = mysqli_fetch_array($result)) {
