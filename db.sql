@@ -178,8 +178,7 @@ INSERT INTO `VYROBCE` (`nazev_firmy`, `stat_firmy`) VALUES ('Kikiri', 'Nemecko')
 
 
 INSERT INTO `ZAMESTNANEC` (`jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES ('Vladimír', 'Novák', 'Správce', '+420978523624', 'xnovak', 'xnovak');
-INSERT INTO `ZAMESTNANEC` (`jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES ('Peter', 'Petr', 'Správce', '+420978523624', 'xpetr', 'xpetr');
-INSERT INTO `ZAMESTNANEC` (`jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES ('Admin', 'Admin', 'Správce', '+420978523624', 'admin', 'admin');
+INSERT INTO `ZAMESTNANEC` (`jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES ('Peter', 'Smutný', 'Správce', '+420978523624', 'xsmutny', 'xsmutny');
 
 INSERT INTO `KLIENT` (`rodne_cislo`, `jmeno`, `prijmeni`,`login`, `heslo`, `tel_cislo`,`ulice`, `mesto`, `vek`, `email`) VALUES ('9156090966', 'Honza','Hudák','honza','honza','0917358624', 'Grohova 45', 'Brno', '32', 'Honza@honza.cz' );
 INSERT INTO `KLIENT` (`rodne_cislo`, `jmeno`, `prijmeni`,`login`, `heslo`, `tel_cislo`,`ulice`, `mesto`, `vek`, `email`) VALUES ('1452536987', 'Admin','Admin','admin','admin','0908948622', 'Kounicova 82', 'Brno', '18', 'Admin@admin.cz' );
