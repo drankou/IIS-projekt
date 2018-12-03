@@ -7,6 +7,21 @@ make_header("Historie");
 <h2> Seznam výpůjček</h2>
 <?php
 
+if (isset($_GET['remove']) && $_GET['remove'] == "success") {
+    echo '<div class="isa_success">Rezervace úspěšně zrušena</div>';
+}
+
+if (isset($_GET['cmd']) && $_GET['cmd'] == "cancel_reservation"){
+    $reservation_id = $_GET['id'];
+
+    $sql = "DELETE FROM VYPUJCKA WHERE id_vypujcky='$reservation_id'";
+    if (mysqli_query($db, $sql)){
+        header("location:client.php?remove=success");
+    }else{
+        echo '<div class="isa_error">Chyba zrušení. Zkuste později.</div>';
+    }
+}
+
 if(isset($_SESSION['login'])) {
     if ($_SESSION['user'] == "client"){
         $id = $_SESSION['user_id'];
@@ -23,7 +38,8 @@ if(isset($_SESSION['login'])) {
 		<th> Správce </th> 
 		<th> Suma </th> 
 		<th> Přijata </th>
-		<th> Vracena </th> 
+		<th> Vracená </th> 
+		<th> Zrušit </th> 
 		</tr>';
             while($row = mysqli_fetch_array($result)) {
                 $reservation_id = $row["id_vypujcky"];
@@ -36,7 +52,7 @@ if(isset($_SESSION['login'])) {
                 $accepted = $accepted == 1 ? "Ano" : "Ne";
                 $returned = $returned == 1 ? "Ano" : "Ne";
 
-                $sql = "SELECT jmeno,prijmeni FROM ZAMESTNANEC WHERE id_zamestnance = $employee_id";
+                $sql = "SELECT jmeno,prijmeni FROM ZAMESTNANEC WHERE id_zamestnance ='$employee_id'";
                 $tmp_result = mysqli_query($db, $sql);
                 $tmp_row = mysqli_fetch_array($tmp_result);
                 $employee_name = $tmp_row['jmeno'].' '.$tmp_row['prijmeni'];
@@ -48,9 +64,14 @@ if(isset($_SESSION['login'])) {
                         <td>". $employee_name ."</td>
                         <td>". $total_price ."</td>
                         <td>". $accepted ."</td>
-                        <td>". $returned ."</td>              
-                      </tr>";
+                        <td>". $returned ."</td>";
 
+                if ($accepted == "Ne"){
+                    echo '<td><a href="client.php?cmd=cancel_reservation&id='.$reservation_id.'"><img
+                            src="images/icons/icon-delete.png" alt="Cancel Reservation"/></a></td></tr>';
+                } else{
+                    echo '<td>-</td></tr>';
+                }
             }
             echo "</table>";
         } else {

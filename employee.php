@@ -189,7 +189,7 @@ if (mysqli_num_rows($result) > 0){
 		<td><?php echo $employee_name; ?></td>
 		<td><?php echo $quantity; ?></td>
 		<td><?php echo $price; ?></td>
-		<td> <a href ="employee.php?cmd=remove_costume&id=<?php echo $product_id;?>" class="btnRemoveAction"><img
+		<td> <a href ="employee.php?cmd=remove_costume&id=<?php echo $product_id;?>"><img
                             src="images/icons/icon-delete.png" alt="Remove Costume"/></a></td>
 		</tr>
 		<?php
