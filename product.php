@@ -14,6 +14,14 @@ if (isset($_POST['image_x'], $_POST['image_y'])) {   //should be this way becaus
     $manager = $_POST['manager'];
     $color = $_POST['color'];
     $quantity = $_POST['quantity'];
+
+    $sql = "SELECT * FROM VYROBCE WHERE id_vyrobce='$manufacter'";
+    $result = mysqli_query($db, $sql);
+    $row = mysqli_fetch_array($result);
+    if (mysqli_num_rows($result) == 1) {
+        $manufacter = $row['nazev_firmy'];
+    }
+
 }
 
 make_header($product_name);
