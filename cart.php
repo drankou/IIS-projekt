@@ -102,7 +102,7 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
 if(isset($_GET['cmd']) && $_GET['cmd'] == "empty_cart"){
     //unset($_SESSION["cart_array"]);
     $_SESSION["cart_array"] = array();
-    header("Location: /cart.php");
+    header("Location: cart.php");
 }elseif (isset($_GET['cmd']) && $_GET['cmd'] == "remove_item"){
     $remove_id = $_GET['id'];
     $i = 0;
@@ -122,7 +122,7 @@ if(isset($_GET['cmd']) && $_GET['cmd'] == "empty_cart"){
                     unset($_SESSION["cart_array"][$key]);
                 }
             }
-            header("Location: /cart.php");
+            header("Location: cart.php");
         }
     }
 }
