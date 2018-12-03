@@ -36,12 +36,12 @@
 <tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
 <tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
 <tr><td>xnovak</td><td>xnovak</td><td>Zaměstnanec</td></tr>
-<tr><td>xpetr</td><td>xpetr</td><td> 2. zaměstnanec</td></tr>
+<tr><td>xsmutny</td><td>xsmutny</td><td>Zaměstnanec</td></tr>
 <tr><td>honza</td><td>honza</td><td>Zákazník</td></tr>
 </table>
 
 <h2>Implementace</h2>
-<p> Implementován byl Use-case diagram z předmětů IUS a IDS, nebyly provedeny žádné změny. Stejně databáze se shoduje z ER diagram z předmětů IUS a IDS </p>
+<p> Implementován byl use-case diagram z předmětů IUS a IDS, nebyly provedeny žádné změny. Stejně databáze se shoduje z ER diagram z předmětů IUS a IDS </p>
 <p> Při implementaci nebyly použity žádné frameworky, vše bylo vytvořené pomocí jazyků HTML, CSS a MySQL </p>
 
 <p>Výpis PHP skriptů a jejich popis:</p>
@@ -58,7 +58,7 @@
   <li>login.php - přihlášení a odhlášení do systému</li>
   <li>product.php - zobrazení kostýmů a doplňku</li>
   <li>registration.php - registrace nového uživatele</li>
-  <li>reservation.php - rezervacia kostýmů</li> 		   
+  <li>reservation.php - rezervace kostýmů</li>
 </ul>
 
 
@@ -71,7 +71,8 @@
 </ul>
 
 <h2>Známé problémy</h2>
-<p> Z časových důvodů se nám nepodařilo z Use-case diagramu implementovat na 100% nastavení pokuty po uplynutí doby výpůjčky. Pokuta se nastaví, uloží se do databáze, ale dále s ní nejde pracovat. Take nelze vyhledat kostým podle kategorie</p>
-
+<p> Z časových důvodů se nám nepodařilo z use-case diagramu implementovat na 100% nastavení pokuty po uplynutí doby výpůjčky.
+    Pokuta se nastaví, uloží se do databáze, ale chybí sdílení informace o pokutě uživateli a možnost uhrady.
+    Take chybí implementace vyhledaní kostýmu nebo doplňku podle kategorie</p>
 </body>
 </html>

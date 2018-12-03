@@ -150,9 +150,9 @@ function filterContainer($min_price, $max_price, $page){
         <div class="select-cat">
             <select name="category" form="search">
                 <option disabled selected value> -- Kategorie -- </option>
-                <option value="men">Muž</option>
-                <option value="women">Žena</option>
-                <option value="child">Dítě</option>
+                <option value="men">Halloween</option>
+                <option value="women">Narozeníny</option>
+                <option value="child">Pohádka</option>
             </select>
         </div>
         <input type="submit" name="search_btn" value="Hledat">
