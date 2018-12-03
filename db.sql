@@ -176,9 +176,10 @@ INSERT INTO `vyrobce` (`id_vyrobce`, `nazev_firmy`, `stat_firmy`) VALUES (null, 
 
 INSERT INTO `zamestnanec` (`id_zamestnance`, `jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES (null, 'Vladimír', 'Novák', 'Správce', '+420978523624', 'xnovak', 'xnovak');
 INSERT INTO `zamestnanec` (`id_zamestnance`, `jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES (null, 'Peter', 'Petr', 'Správce', '+420978523624', 'xpetr', 'xpetr');
+INSERT INTO `zamestnanec` (`id_zamestnance`, `jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES (null, 'Admin', 'Admin', 'Správce', '+420978523624', 'admin', 'admin');
 
-
-
+INSERT INTO `klient` (`rodne_cislo`, `jmeno`, `prijmeni`,`login`, `heslo`, `tel_cislo`,`ulice`, `mesto`, `vek`, `email`) VALUES ('9156090966', 'Honza','Hudák','honza','honza','0917358624', 'Grohova 45', 'Brno', '32', 'Honza@honza.cz' );
+INSERT INTO `klient` (`rodne_cislo`, `jmeno`, `prijmeni`,`login`, `heslo`, `tel_cislo`,`ulice`, `mesto`, `vek`, `email`) VALUES ('1452536987', 'Admin','Admin','admin','admin','0908948622', 'Kounicova 82', 'Brno', '18', 'Admin@admin.cz' );
 
 INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES (null, 'Bart', 'žlutá', 'M', 'bavlna', '1500', '2014-10-10', '1000', '5000', 'images/costumes/bart.jpg', '5');
  INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`,`pocet_kusu`) VALUES (null, 'Jeptiška', 'šedá', 'S', 'bavlna', '1500', '2014-11-11', '1001', '5000', 'images/costumes/mniska.jpg', '2');
