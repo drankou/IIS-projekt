@@ -135,5 +135,6 @@ if (count($_SESSION['cart_array']) > 0){
     </div>
 <?php
 }
+mysqli_close($db);
 make_footer();
 ?>

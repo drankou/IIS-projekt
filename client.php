@@ -26,7 +26,7 @@ if(isset($_SESSION['login'])) {
     if ($_SESSION['user'] == "client"){
         $id = $_SESSION['user_id'];
 
-        $sql = "SELECT * FROM VYPUJCKA WHERE klient='$id'";
+        $sql = "SELECT * FROM VYPUJCKA WHERE klient='$id' ORDER BY id_vypujcky DESC ";
         $result = mysqli_query($db, $sql);
 
         if (mysqli_num_rows($result) > 0){
@@ -86,5 +86,6 @@ else{
 
 
 <?php
+mysqli_close($db);
 make_footer();
 ?>

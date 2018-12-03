@@ -17,7 +17,7 @@ $allowed = array('jpg', 'jpeg', 'png', 'gif');
 // COSTUMES TABLE
 echo '<h2> Vypujcky </h2>';
 $employee_id = $_SESSION['user_id'];
-$sql = "SELECT * FROM VYPUJCKA WHERE spravce = $employee_id";
+$sql = "SELECT * FROM VYPUJCKA WHERE spravce = $employee_id ORDER BY id_vypujcky DESC";
 $result = mysqli_query($db,$sql) or die(mysqli_error($db));
 
 if (mysqli_num_rows($result) > 0){
@@ -86,18 +86,37 @@ if (isset($_GET['cmd']) && $_GET['cmd'] == "accept"){
     $reservation_id = $_GET['id'];
     $sql = "UPDATE VYPUJCKA SET accepted=1 WHERE id_vypujcky='$reservation_id'";
     if (!mysqli_query($db, $sql)){
-        echo '<div class="isa_error">
-                     Chyba </div>';
+        echo '<div class="isa_error">Chyba</div>';
     }
     header("location:employee.php");
 }
 
 if (isset($_GET['cmd']) && $_GET['cmd'] == "return"){
     $reservation_id = $_GET['id'];
+
+    $sql = "SELECT * FROM VYPUJCKA WHERE id_vypujcky='$reservation_id'";
+    $result = mysqli_query($db, $sql);
+    $row = mysqli_fetch_array($result);
+    $return_date = strtotime($row['datum_vraceni']);
+    $today = time();
+
+    $date_diff = floor(($today - $return_date) / (60 * 60 * 24));
+
+    if ($date_diff > 0){
+        //pokuta
+        $sql = "UPDATE VYPUJCKA SET pokuta=50*$date_diff WHERE id_vypujcky='$reservation_id'";
+        if (!mysqli_query($db, $sql)){
+            echo '<div class="isa_error">Chyba</div>';
+        }
+    }
+    //compare return_date vs today
+    //if > then pokuta = 5%*cena * days
+    //else pokuta = 0
+
+
     $sql = "UPDATE VYPUJCKA SET returned=1 WHERE id_vypujcky='$reservation_id'";
     if (!mysqli_query($db, $sql)){
-        echo '<div class="isa_error">
-                     Chyba </div>';
+        echo '<div class="isa_error">Chyba</div>';
     }
 
     //Returning accessory quantity
@@ -110,8 +129,7 @@ if (isset($_GET['cmd']) && $_GET['cmd'] == "return"){
 
             $sql = "UPDATE DOPLNEK SET pocet_kusu=pocet_kusu + '$quantity' WHERE id='$product_id'";
             if (!mysqli_query($db, $sql)){
-                echo '<div class="isa_error">
-                     Chyba </div>';
+                echo '<div class="isa_error">Chyba</div>';
             }
         }
     }
@@ -126,13 +144,12 @@ if (isset($_GET['cmd']) && $_GET['cmd'] == "return"){
 
             $sql = "UPDATE KOSTYM SET pocet_kusu=pocet_kusu + '$quantity' WHERE id='$product_id'";
             if (!mysqli_query($db, $sql)){
-                echo '<div class="isa_error">
-                     Chyba </div>';
+                echo '<div class="isa_error">Chyba </div>';
             }
         }
     }
 
-    header("location:employee.php?status=returned");
+    //header("location:employee.php?status=returned");
 }
 
 
@@ -499,5 +516,6 @@ if (isset($_POST['add_accessory'])) {
 
 
 <?php
+mysqli_close($db);
 make_footer();
 ?>

@@ -9,6 +9,7 @@ make_header("Uvodní strana");
 
 
 <?php
+mysqli_close($db);
 make_footer();
 ?>
 

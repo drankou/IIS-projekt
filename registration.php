@@ -162,5 +162,6 @@ if (isset($_POST['register_btn'])) {
 ?>
 
 <?php
+mysqli_close($db);
 make_footer();
 ?>

@@ -140,18 +140,28 @@ function get_products($db, $sql, $product){
 }
 function filterContainer($min_price, $max_price, $page){
     echo '<div class="filterContainer">
-    <form class="filter-form" action="',$page,'" method="post">
+    <form class="filter-form" id="search" action="',$page,'" method="post">
         <div class="price-controls">
             Cena
             od <input name="min-price" type="text" value="',$min_price,'">
             do <input name="max-price" type="text" value="',$max_price,'">
         </div>
-        <div class="ordering-controls">
-            <a href="'.$page.'?mode=ascending">od nejlevnějšího</a>
-            <a href="'.$page.'?mode=descending">od nejdražšího</a>            
+        <div class="select-cat">
+            <select name="category" form="search">
+                <option disabled selected value> -- Kategorie -- </option>
+                <option value="men">Muž</option>
+                <option value="women">Žena</option>
+                <option value="child">Dítě</option>
+            </select>
         </div>
         <input type="submit" name="search_btn" value="Hledat">
     </form>
+    <div class="ordering-controls">
+            <span> Řadit </span>
+            <a href="'.$page.'?mode=ascending">od nejlevnějšího</a>
+            <span> / </span>
+            <a href="'.$page.'?mode=descending">od nejdražšího</a>            
+    </div>
     </div>';
 }
 function get_related_products($db, $product_id){

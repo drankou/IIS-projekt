@@ -36,5 +36,6 @@ make_header("Doplňky");
 </div>
 
 <?php
+mysqli_close($db);
 make_footer();
 ?>

@@ -49,5 +49,6 @@ make_header("Přihlašení");
     ?>
 
 <?php
+mysqli_close($db);
 make_footer();
 ?>

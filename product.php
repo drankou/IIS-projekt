@@ -74,5 +74,6 @@ make_header($product_name);
 </main>
 
 <?php
+mysqli_close($db);
 make_footer();
 ?>

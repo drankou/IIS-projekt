@@ -175,6 +175,8 @@ footer{
 }
 
 .filterContainer{
+    margin-top: 20px;
+    margin-left: 50px;
     width: auto;
     height: auto;
     padding: 20px;
@@ -244,6 +246,10 @@ h2{
     border:none;
     font-size:16px;
     text-align:center;
+}
+
+.select-cat{
+    margin-top: 15px;
 }
 
 .min-price {
@@ -324,33 +330,16 @@ th,td{
 }
 
 .isa_error {
-margin: 10px 0px;
-padding:12px;
-color: #D8000C;
-background-color: #FFD2D2; 
-}
-
-.tbl-employ{
-    width: 70%;
-    margin: auto;
-    text-align:center;
-}
-
-.tbl-employ{
-    width: 70%;
-    margin: auto;
-    text-align: center;
-    align-self: left;
-}
-
-.tbl-employ tr{
-    line-height: 20px;
+    margin: 10px 0;
+    padding:12px;
+    color: #D8000C;
+    background-color: #FFD2D2;
 }
 
 .isa_success {
     color: #4F8A10;
     background-color: #DFF2BF;
-    margin: 10px 0px;
+    margin: 10px 0;
     padding:12px;
 }
 
@@ -368,9 +357,20 @@ background-color: #FFD2D2;
     padding: 20px;
 }
 
-.add-contacts-container{
-    height: 200px;
+.contacts-container{
+    height: 300px;
     width: 100%;
-    overflow: hidden;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    padding-left: 150px;
+}
+
+.contacts-block{
+    float: left;
+    width: 50%;
+}
+
+.ordering-controls{
+    margin-top: 10px;
 }

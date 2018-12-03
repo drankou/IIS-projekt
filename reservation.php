@@ -77,5 +77,6 @@ echo '<div>
 
 
 <?php
+mysqli_close($db);
 make_footer();
 ?>
