@@ -367,3 +367,10 @@ background-color: #FFD2D2;
     height: 700px;
     padding: 20px;
 }
+
+.add-contacts-container{
+    height: 200px;
+    width: 100%;
+    overflow: hidden;
+    padding: 20px;
+}
