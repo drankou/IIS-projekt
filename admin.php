@@ -38,7 +38,7 @@ if (mysqli_num_rows($result) > 0){
 		<td><?php echo $row["login"]; ?></td>
 		<td><?php echo $row["pozice"]; ?></td>
 		<td><?php echo $row["telefon"]; ?></td>
-		<td> <a href ="admin.php?cmd=remove_employee&id= <?php echo $row["id_zamestnance"];?>" class="btnRemoveAction"><img
+		<td> <a href ="admin.php?cmd=remove_employee&id=<?php echo $row["id_zamestnance"];?>" class="btnRemoveAction"><img
                             src="images/icons/icon-delete.png" alt="Remove Employee"/></a></td>
 		</tr>
 
@@ -56,7 +56,7 @@ if (mysqli_num_rows($result) > 0){
         	$remove_id = $_GET['id'];
         	$sql = "DELETE FROM ZAMESTNANEC where id_zamestnance=$remove_id";
         	if (mysqli_query($db, $sql)){
-        	    header("Location: /admin.php?removed=true");
+        	    header("Location: admin.php?removed=true");
         	} else {               
         		echo '<div class="isa_error">
                      Nepodarilo se odstranit zamestnance </div>';
@@ -83,7 +83,7 @@ if (mysqli_num_rows($result) > 0){
 	    if (mysqli_query($db, $sql)) {
 	    	     	 echo '<div class="isa_success">
 	                     Zamestnanec uspesne pridan </div>';
-	                     header("Location: /admin.php");
+	                     header("Location: admin.php");
 	     } else {   
 	     			echo '<div class="isa_error">
 	                     Nepodarilo sa priat zamestnanca skuste to znova </div>';  	
@@ -96,7 +96,7 @@ if (mysqli_num_rows($result) > 0){
 ?>
 		<div class="add-employee">
             <h3> Pridat zamestnanca </h3>
-			<form name ="form1" action="" method="post">
+			<form name ="form1" action="admin.php" method="post">
 				<table>
 					<tr>
 						<td>Jméno*</td>

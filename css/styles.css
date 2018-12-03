@@ -374,3 +374,18 @@ th,td{
 .ordering-controls{
     margin-top: 10px;
 }
+
+.homepage{
+    margin-top: 20px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.homepage img{
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}

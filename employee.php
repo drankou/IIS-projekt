@@ -288,7 +288,7 @@ if (mysqli_num_rows($result) > 0){
         	$sql = "DELETE FROM KOSTYM WHERE id='$remove_id'";
             $result = mysqli_query($db, $sql);
         	if ($result){
-        		header("Location: /employee.php?status=success");
+        		header("Location: employee.php?status=success");
         	} else {
         		echo '<div class="isa_error">
                      Nepodarilo sa odstranit kostým </div>';
@@ -301,7 +301,7 @@ if (mysqli_num_rows($result) > 0){
         	$remove_id = $_GET['id'];
         	$sql = "DELETE FROM DOPLNEK where id=$remove_id";
         	if (mysqli_query($db, $sql)){        		
-        		header("Location: /employee.php?status=success");
+        		header("Location: employee.php?status=success");
         	} else {
         		echo '<div class="isa_error">
                      Nepodarilo sa odstranit doplňek </div>';
