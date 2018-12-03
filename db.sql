@@ -179,7 +179,7 @@ INSERT INTO `VYROBCE` (`nazev_firmy`, `stat_firmy`) VALUES ('Kikiri', 'Nemecko')
 
 
 INSERT INTO `ZAMESTNANEC` (`jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES ('Vladimír', 'Novák', 'Správce', '+420978523624', 'xnovak', 'xnovak');
-INSERT INTO `ZAMESTNANEC` (`jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES ('Peter', 'Smutný', 'Správce', '+420978523624', 'xpetr', 'xpetr');
+INSERT INTO `ZAMESTNANEC` (`jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES ('Peter', 'Smutný', 'Správce', '+420978523624', 'xsmutny', 'xsmutny');
 
 INSERT INTO `KLIENT` (`rodne_cislo`, `jmeno`, `prijmeni`,`login`, `heslo`, `tel_cislo`,`ulice`, `mesto`, `vek`, `email`) VALUES ('9156090966', 'Honza','Hudák','honza','honza','0917358624', 'Grohova 45', 'Brno', '32', 'Honza@honza.cz' );
 INSERT INTO `KLIENT` (`rodne_cislo`, `jmeno`, `prijmeni`,`login`, `heslo`, `tel_cislo`,`ulice`, `mesto`, `vek`, `email`) VALUES ('1452536987', 'Admin','Admin','admin','admin','0908948622', 'Kounicova 82', 'Brno', '18', 'Admin@admin.cz' );
@@ -194,9 +194,6 @@ INSERT INTO `KLIENT` (`rodne_cislo`, `jmeno`, `prijmeni`,`login`, `heslo`, `tel_
  INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES ('Pirát', 'zelená', 'L', 'bavlna', '750', '2013-07-11', '1000', '5000', 'images/costumes/pirate.jpg', '5');
  INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES ('Lego postavička', 'žlutá', 'M', 'bavlna', '875', '2011-07-11', '1000', '5000', 'images/costumes/lego.jpg', '1');
  INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES ('Aladin', 'bíla', 'M', 'bavlna', '1200', '2015-02-114', '1001', '5000', 'images/costumes/aladin.jpg', '4');
-
-
-
 
 INSERT INTO `DOPLNEK` (`nazev`, `barva`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `kostym`, `filepath`, `pocet_kusu`) VALUES ('Rukavice', 'černá', 'bavlna', '250', '2014-10-29', '1000', '5000', '2002', 'images/accessories/gloves.jpg', '1');
 INSERT INTO `DOPLNEK` (`nazev`, `barva`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `kostym`, `filepath`, `pocet_kusu`) VALUES ('Koruna', 'stříbrná', 'lehký kov', '400', '2017-10-07', '1001', '5000', '2003', 'images/accessories/koruna.jpg', '2');
@@ -218,4 +215,8 @@ INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2006','6002');
 INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2007','6001');
 INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2008','6000');
 INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2009','6002');
+
+INSERT INTO `DOPLNEK_KATEGORIE` (`doplnek`, `kategorie`) VALUES ('3003','6001');
+INSERT INTO `DOPLNEK_KATEGORIE` (`doplnek`, `kategorie`) VALUES ('3001','6000');
+
 

@@ -18,7 +18,6 @@ filterContainer($min_price, $max_price, "costumes.php");
     if (isset($_POST['search_btn'])){
         $max_price = $_POST['max-price'];
         $min_price = $_POST['min-price'];
-        $category = $_POST['category'];
 
         $sql = "SELECT * FROM KOSTYM WHERE cena BETWEEN '$min_price' AND '$max_price'";
     }else {

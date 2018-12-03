@@ -3,14 +3,14 @@ require "common.php";
 require "db_init.php";
 
 make_header("Admin");
-echo "<h2> Informace o zamestnancoch </h2>";
+echo "<h2> Informace o zaměstnancích </h2>";
 ?>
 
 
 <?php
 
 if (isset($_GET['removed']) && $_GET['removed'] == "true"){
-    echo '<div class="isa_success">Zamestnanec uspesne odstranen</div>';
+    echo '<div class="isa_success">Zaměstnanec úspěsně odstraněn</div>';
 }
 
 
@@ -58,8 +58,7 @@ if (mysqli_num_rows($result) > 0){
         	if (mysqli_query($db, $sql)){
         	    header("Location: admin.php?removed=true");
         	} else {               
-        		echo '<div class="isa_error">
-                     Nepodarilo se odstranit zamestnance </div>';
+        		echo '<div class="isa_error">Nepodarilo se odstranit zamestnance </div>';
         	}
         }
 
@@ -81,21 +80,16 @@ if (mysqli_num_rows($result) > 0){
 	   else {
 	    $sql = "INSERT INTO ZAMESTNANEC(jmeno, prijmeni, pozice, telefon, login, heslo) VALUES ('$name', '$surname', '$position', '$number', '$login', '$password')";
 	    if (mysqli_query($db, $sql)) {
-	    	     	 echo '<div class="isa_success">
-	                     Zamestnanec uspesne pridan </div>';
+	    	     	 echo '<div class="isa_success">Zamestnanec uspesne pridan </div>';
 	                     header("Location: admin.php");
-	     } else {   
-	     			echo '<div class="isa_error">
-	                     Nepodarilo sa priat zamestnanca skuste to znova </div>';  	
-
+	    } else {
+	     			echo '<div class="isa_error">Nepodarilo sa priat zamestnanca skuste to znova </div>';
 	    	 }
-	    	    	
-	    } 
-	      
+	    }
 	}
 ?>
 		<div class="add-employee">
-            <h3> Pridat zamestnanca </h3>
+            <h3> Přidat zaměstnance </h3>
 			<form name ="form1" action="admin.php" method="post">
 				<table>
 					<tr>
@@ -123,7 +117,7 @@ if (mysqli_num_rows($result) > 0){
 						<td><input type="text" name="add_telnumber" placeholder="+421987654321"> </td>
 					</tr>					
 					<tr>
-						<td colspan="2" align="center"><input type ="submit" name="add_employee" value="Pridat Zamestnanca"></td>
+						<td colspan="2" align="center"><input type ="submit" name="add_employee" value="Přidat Zaměstnance"></td>
 					</tr>	
 				</table>
 			</form>
