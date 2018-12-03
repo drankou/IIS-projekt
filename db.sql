@@ -1,4 +1,3 @@
-
 CREATE TABLE `KLIENT`(
 `rodne_cislo` CHAR(11),
 `jmeno` VARCHAR(20) NOT NULL,
@@ -57,7 +56,7 @@ ENGINE=InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS `KATEGORIE`(
-`id_kategorie` VARCHAR(20),
+`id_kategorie` INT NOT NULL AUTO_INCREMENT,
 `akce` VARCHAR(20),
 PRIMARY KEY(`id_kategorie`)
 )
@@ -80,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `KOSTYM`(
 PRIMARY KEY (`id`),
 KEY `spravce` (`spravce`),
 KEY `vyrobce` (`vyrobce`),
-CONSTRAINT `FK_kostym_spravce` FOREIGN KEY(`spravce`) REFERENCES `ZAMESTNANEC` (`id_zamestnance`),
+CONSTRAINT `FK_kostym_spravce` FOREIGN KEY(`spravce`) REFERENCES `ZAMESTNANEC` (`id_zamestnance`) ON DELETE SET NULL,
 CONSTRAINT `FK_kostym_vyrobce` FOREIGN KEY(`vyrobce`) REFERENCES `VYROBCE` (`id_vyrobce`)
 )
 COLLATE utf8_czech_ci
@@ -139,7 +138,7 @@ ENGINE=InnoDB;
 
 CREATE TABLE `DOPLNEK_KATEGORIE`(
 `doplnek` INT,
-`kategorie` VARCHAR(20),
+`kategorie` INT,
 PRIMARY KEY(`doplnek`,`kategorie`),
 KEY `doplnek` (`doplnek`),
 KEY `kategorie` (`kategorie`),
@@ -152,7 +151,7 @@ ENGINE=InnoDB;
 
 CREATE TABLE `KOSTYM_KATEGORIE`(
 `kostym` INT,
-`kategorie` VARCHAR(20),
+`kategorie` INT,
 PRIMARY KEY(`kostym`,`kategorie`),
 KEY `kostym` (`kostym`),
 KEY `kategorie` (`kategorie`),
