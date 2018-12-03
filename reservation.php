@@ -12,7 +12,15 @@ if (isset($_POST['reserve-btn'])){
     $total_price = $_POST['total_price'];
     $rent_date = $_POST['rent_date'];
     $return_date = $_POST['return_date'];
-    $employee_id = 1; //maybe add function to randomly choose employee for processing order
+
+    $employees = [];
+    $sql = "SELECT * FROM ZAMESTNANEC";
+    $result = mysqli_query($db, $sql);
+    while($row = mysqli_fetch_array($result)){
+        array_push($employees, $row['id_zamestnance']);
+    }
+
+    $employee_id = $employees[array_rand($employees)];
 
     $sql = "INSERT INTO VYPUJCKA(suma, datum_pujceni, datum_vraceni, spravce, klient) 
     VALUES ('$total_price', '$rent_date', '$return_date', '$employee_id', '$client_id')";
