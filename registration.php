@@ -76,7 +76,7 @@ if (isset($_POST['register_btn'])) {
                     <input type="password" name="password" id="password" required><br>
             
                     <label for="personal_id">Rodné číslo*</label>
-                    <input type="text" name="personal_id" id="personal_id" placeholder="123456/7890" required><br>
+                    <input type="text" name="personal_id" id="personal_id" placeholder="1234567890" required><br>
             
                     <label for="name">Jméno</label>
                     <input type="text" name="name" id="name"><br>
@@ -130,7 +130,7 @@ if (isset($_POST['register_btn'])) {
         <input type="password" name="password" id="password" required><br>
 
         <label for="personal_id">Rodné číslo*</label>
-        <input type="text" name="personal_id" id="personal_id" placeholder="123456/7890" required><br>
+        <input type="text" name="personal_id" id="personal_id" placeholder="1234567890" required><br>
 
         <label for="name">Jméno</label>
         <input type="text" name="name" id="name"><br>
