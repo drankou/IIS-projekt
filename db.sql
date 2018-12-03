@@ -170,6 +170,7 @@ ALTER TABLE KOSTYM AUTO_INCREMENT = 2000;
 ALTER TABLE DOPLNEK AUTO_INCREMENT = 3000;
 ALTER TABLE VYPUJCKA AUTO_INCREMENT = 4000;
 ALTER TABLE VYROBCE AUTO_INCREMENT = 5000;
+ALTER TABLE KATEGORIE AUTO_INCREMENT = 6000;
 
 
 
@@ -178,7 +179,7 @@ INSERT INTO `VYROBCE` (`nazev_firmy`, `stat_firmy`) VALUES ('Kikiri', 'Nemecko')
 
 
 INSERT INTO `ZAMESTNANEC` (`jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES ('Vladimír', 'Novák', 'Správce', '+420978523624', 'xnovak', 'xnovak');
-INSERT INTO `ZAMESTNANEC` (`jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES ('Peter', 'Smutný', 'Správce', '+420978523624', 'xsmutny', 'xsmutny');
+INSERT INTO `ZAMESTNANEC` (`jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES ('Peter', 'Smutný', 'Správce', '+420978523624', 'xpetr', 'xpetr');
 
 INSERT INTO `KLIENT` (`rodne_cislo`, `jmeno`, `prijmeni`,`login`, `heslo`, `tel_cislo`,`ulice`, `mesto`, `vek`, `email`) VALUES ('9156090966', 'Honza','Hudák','honza','honza','0917358624', 'Grohova 45', 'Brno', '32', 'Honza@honza.cz' );
 INSERT INTO `KLIENT` (`rodne_cislo`, `jmeno`, `prijmeni`,`login`, `heslo`, `tel_cislo`,`ulice`, `mesto`, `vek`, `email`) VALUES ('1452536987', 'Admin','Admin','admin','admin','0908948622', 'Kounicova 82', 'Brno', '18', 'Admin@admin.cz' );
@@ -186,7 +187,7 @@ INSERT INTO `KLIENT` (`rodne_cislo`, `jmeno`, `prijmeni`,`login`, `heslo`, `tel_
  INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES ('Bart', 'žlutá', 'M', 'bavlna', '1500', '2014-10-10', '1000', '5000', 'images/costumes/bart.jpg', '5');
  INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`,`pocet_kusu`) VALUES ('Jeptiška', 'šedá', 'S', 'bavlna', '1500', '2014-11-11', '1001', '5000', 'images/costumes/mniska.jpg', '2');
  INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`,`pocet_kusu`) VALUES ('Carmen', 'černá', 'M', 'bavlna', '1250', '2014-02-05', '1001', '5001', 'images/costumes/carman.jpg', '3');
- INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`,`pocet_kusu`) VALUES ('Jahúdka', 'červená', 'S', 'bavlna', '1000', '2013-11-08', '1001', '5000', 'images/costumes/jahodka.jpg', '5');
+ INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`,`pocet_kusu`) VALUES ('Jahůdka', 'červená', 'S', 'bavlna', '1000', '2013-11-08', '1001', '5000', 'images/costumes/jahodka.jpg', '5');
  INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`,`pocet_kusu`) VALUES ('Kostra', 'šedá', 'L', 'bavlna', '950', '2016-07-11', '1001', '5001', 'images/costumes/kostra.jpg', '5');
  INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES ('Mimoň', 'žlutá', 'S', 'bavlna', '850', '2017-12-06', '1001', '5000', 'images/costumes/mimon.jpg', '0');
  INSERT INTO `KOSTYM` (`nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES ('Shrek', 'zelená', 'XL', 'bavlna', '1350', '2012-05-11', '1001', '5000', 'images/costumes/shrek.jpg', '2');
@@ -203,5 +204,18 @@ INSERT INTO `DOPLNEK` (`nazev`, `barva`, `material`, `cena`, `datum_vyroby`, `sp
 INSERT INTO `DOPLNEK` (`nazev`, `barva`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `kostym`, `filepath`, `pocet_kusu`) VALUES ('Maska', 'zlatá', 'umělá hmota', '400', '2016-07-07', '1001', '5000', '2007', 'images/accessories/mask.jpg', '4');
 INSERT INTO `DOPLNEK` (`nazev`, `barva`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `kostym`, `filepath`, `pocet_kusu`) VALUES ('Meč', 'šedá', 'umělá hmota', '200', '2018-07-07', '1000', '5001', '2007', 'images/accessories/mec.jpg', '5');
 
+INSERT INTO `KATEGORIE` (`akce`) VALUES ('narozeniny');
+INSERT INTO `KATEGORIE` (`akce`) VALUES ('haloween');
+INSERT INTO `KATEGORIE` (`akce`) VALUES ('rozprávka');
 
+INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2000','6000');
+INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2001','6001');
+INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2002','6001');
+INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2003','6002');
+INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2004','6001');
+INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2005','6002');
+INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2006','6002');
+INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2007','6001');
+INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2008','6000');
+INSERT INTO `KOSTYM_KATEGORIE` (`kostym`, `kategorie`) VALUES ('2009','6002');
 
