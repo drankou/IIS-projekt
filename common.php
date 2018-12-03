@@ -1,13 +1,14 @@
 <?php
 session_start();
 if (!isset($_SESSION["cart_array"])){
-    $_SESSION["cart_array"] = [];
+    $_SESSION["cart_array"] = array();
 }
 if (!isset($_SESSION['user'])){
     $_SESSION['user'] = "visitor";
 }
 function make_header($title)
 {
+    ini_set("default_charset", "utf-8");
     ?>
     <!DOCTYPE html>
     <html>

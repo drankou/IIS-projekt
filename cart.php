@@ -101,7 +101,7 @@ if (!isset($_SESSION["cart_array"]) || count($_SESSION["cart_array"]) < 1){
 // script (if user chooses to empty their shopping cart)
 if(isset($_GET['cmd']) && $_GET['cmd'] == "empty_cart"){
     //unset($_SESSION["cart_array"]);
-    $_SESSION["cart_array"] = [];
+    $_SESSION["cart_array"] = array();
     header("Location: /cart.php");
 }elseif (isset($_GET['cmd']) && $_GET['cmd'] == "remove_item"){
     $remove_id = $_GET['id'];
@@ -117,7 +117,7 @@ if(isset($_GET['cmd']) && $_GET['cmd'] == "empty_cart"){
                 $_SESSION["cart_array"][$key]["price"] = $price/$quantity * $_SESSION["cart_array"][$key]["quantity"] ;
             }else{
                 if (count($_SESSION['cart_array']) == 1){
-                    $_SESSION["cart_array"] = [];
+                    $_SESSION["cart_array"] = array();
                 }else{
                     unset($_SESSION["cart_array"][$key]);
                 }

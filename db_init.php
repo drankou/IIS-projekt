@@ -1,12 +1,10 @@
 <?php
-$DB_HOST = "localhost";  //
-$DB_USERNAME = "root";  //xdrank00
-$DB_PASSWORD = "password";  //jir4onvu
-$DB_NAME = "iis-project";   //xdrank00
+$DB_HOST = "localhost";
+$DB_USERNAME = "xdrank00";
+$DB_PASSWORD = "jir4onvu";
+$DB_NAME = "xdrank00";
 
-
-// Zakomentovane kvoli local host databaze 
-/*$db = mysqli_init();
-if (!mysqli_real_connect($db, $DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME, 3306, '/var/run/mysqld/mysqld.sock')) {
+$db = mysqli_init();
+if (!mysqli_real_connect($db, $DB_HOST, $DB_USERNAME, $DB_PASSWORD, $DB_NAME, 3306, '/var/run/mysql/mysql.sock')) {
     die('cannot connect '.mysqli_connecterror());
-}*/
+}

@@ -13,7 +13,7 @@ if (isset($_POST['reserve-btn'])){
     $rent_date = $_POST['rent_date'];
     $return_date = $_POST['return_date'];
 
-    $employees = [];
+    $employees = array();
     $sql = "SELECT * FROM ZAMESTNANEC";
     $result = mysqli_query($db, $sql);
     while($row = mysqli_fetch_array($result)){
@@ -63,7 +63,7 @@ if (isset($_POST['reserve-btn'])){
         }
     }
 
-    $_SESSION['cart_array'] = [];   //clear cart
+    $_SESSION['cart_array'] = array();   //clear cart
 }
 
 echo '<div class="isa_success">
