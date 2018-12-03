@@ -98,7 +98,7 @@ CREATE TABLE `DOPLNEK`(
 `vyrobce` INT,
 `kostym` INT,
 `filepath` VARCHAR(50),
-`pocet_kuse` INT,
+`pocet_kusu` INT,
 PRIMARY KEY (`id`),
 KEY `spravce` (`spravce`),
 KEY `vyrobce` (`vyrobce`),
@@ -168,3 +168,37 @@ ALTER TABLE KOSTYM AUTO_INCREMENT = 2000;
 ALTER TABLE DOPLNEK AUTO_INCREMENT = 3000;
 ALTER TABLE VYPUJCKA AUTO_INCREMENT = 4000;
 ALTER TABLE VYROBCE AUTO_INCREMENT = 5000;
+
+
+INSERT INTO `vyrobce` (`id_vyrobce`, `nazev_firmy`, `stat_firmy`) VALUES (null, 'Cosmos', 'Česká republika');
+INSERT INTO `vyrobce` (`id_vyrobce`, `nazev_firmy`, `stat_firmy`) VALUES (null, 'Kikiri', 'Nemecko');
+
+
+INSERT INTO `zamestnanec` (`id_zamestnance`, `jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES (null, 'Vladimír', 'Novák', 'Správce', '+420978523624', 'xnovak', 'xnovak');
+INSERT INTO `zamestnanec` (`id_zamestnance`, `jmeno`, `prijmeni`, `pozice`, `telefon`, `login`, `heslo`) VALUES (null, 'Peter', 'Petr', 'Správce', '+420978523624', 'xpetr', 'xpetr');
+
+
+
+
+INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES (null, 'Bart', 'žlutá', 'M', 'bavlna', '1500', '2014-10-10', '1000', '5000', 'images/costumes/bart.jpg', '5');
+ INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`,`pocet_kusu`) VALUES (null, 'Jeptiška', 'šedá', 'S', 'bavlna', '1500', '2014-11-11', '1001', '5000', 'images/costumes/mniska.jpg', '2');
+ INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`,`pocet_kusu`) VALUES (null, 'Carmen', 'černá', 'M', 'bavlna', '1250', '2014-02-05', '1001', '5001', 'images/costumes/carman.jpg', '3');
+ INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`,`pocet_kusu`) VALUES (null, 'Jahúdka', 'červená', 'S', 'bavlna', '1000', '2013-11-08', '1001', '5000', 'images/costumes/jahodka.jpg', '5');
+ INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`,`pocet_kusu`) VALUES (null, 'Kostra', 'šedá', 'L', 'bavlna', '950', '2016-07-11', '1001', '5001', 'images/costumes/kostra.jpg', '5');
+ INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES (null, 'Mimoň', 'žlutá', 'S', 'bavlna', '850', '2017-12-06', '1001', '5000', 'images/costumes/mimon.jpg', '0');
+ INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES (null, 'Shrek', 'zelená', 'XL', 'bavlna', '1350', '2012-05-11', '1001', '5000', 'images/costumes/shrek.jpg', '2');
+ INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES (null, 'Pirát', 'zelená', 'L', 'bavlna', '750', '2013-07-11', '1000', '5000', 'images/costumes/pirate.jpg', '5');
+ INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES (null, 'Lego postavička', 'žlutá', 'M', 'bavlna', '875', '2011-07-11', '1000', '5000', 'images/costumes/lego.jpg', '1');
+ INSERT INTO `kostym` (`id`, `nazev`, `barva`, `velikost`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `filepath`, `pocet_kusu`) VALUES (null, 'Aladin', 'bíla', 'M', 'bavlna', '1200', '2015-02-114', '1001', '5000', 'images/costumes/aladin.jpg', '4');
+
+
+
+
+INSERT INTO `doplnek` (`id`, `nazev`, `barva`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `kostym`, `filepath`, `pocet_kusu`) VALUES (null, 'Rukavice', 'černá', 'bavlna', '250', '2014-10-29', '1000', '5000', '2002', 'images/accessories/gloves.jpg', '1');
+INSERT INTO `doplnek` (`id`, `nazev`, `barva`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `kostym`, `filepath`, `pocet_kusu`) VALUES (null, 'Koruna', 'stříbrná', 'lehký kov', '400', '2017-10-07', '1001', '5000', '2003', 'images/accessories/koruna.jpg', '2');
+INSERT INTO `doplnek` (`id`, `nazev`, `barva`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `kostym`, `filepath`, `pocet_kusu`) VALUES (null, 'Dlouhé rukavice', 'černá', 'bavlna', '350', '2018-08-07', '1000', '5001', '2002', 'images/accessories/long_gloves.jpg', '3');
+INSERT INTO `doplnek` (`id`, `nazev`, `barva`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `kostym`, `filepath`, `pocet_kusu`) VALUES (null, 'Maska', 'zlatá', 'umělá hmota', '400', '2016-07-07', '1001', '5000', '2007', 'images/accessories/mask.jpg', '4');
+INSERT INTO `doplnek` (`id`, `nazev`, `barva`, `material`, `cena`, `datum_vyroby`, `spravce`, `vyrobce`, `kostym`, `filepath`, `pocet_kusu`) VALUES (null, 'Meč', 'šedá', 'umělá hmota', '200', '2018-07-07', '1000', '5001', '2007', 'images/accessories/mec.jpg', '5');
+
+
+
