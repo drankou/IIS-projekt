@@ -62,11 +62,9 @@ if (isset($_POST['register_btn'])) {
                 </form>
               </div>';
           
-    } else {    //TODO error message handling using error_no(same name, duplicity and so on)
-                //print out message to user and ask to try again
-        echo "Error: " . $sql . "<br>" . mysqli_errno($db);
+    } else{
         echo '<div class="registration">
-                <h4>Behem registrace vznikla chyba. Zkuste znovu.</h4>  //example of message
+                <h4>Během registrace vznikla chyba. Zkuste znovu.</h4>
                 <form action="registration.php" method="post">
 
                     <label for=login>Login*</label>
@@ -105,20 +103,13 @@ if (isset($_POST['register_btn'])) {
               </div>';
     }
 }} else{
-    // Warnings when personal id, email or login exist   
     $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];    
     if (strpos($url,'login') !== false) {         
-         echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
-                     Login je již zabraný </div>';
+         echo '<div class="isa_error">Login je již zabraný </div>';
     }else if (strpos($url,'email') !== false) {         
-         echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
-                     Email je již registrovaný </div>';
+         echo '<div class="isa_error">Email je již registrovaný </div>';
     }else if (strpos($url,'id') !== false) {        
-        echo '<div class="isa_error">
-                 <i class="fa fa-times-circle"></i>
-                     Rodné číslo je již registrováno </div>';
+        echo '<div class="isa_error">Rodné číslo je již registrováno </div>';
 }    
      
     echo '<div class="registration">
